@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0e0e10;
-  --foreground: #e2e8f0;
-}
+/* === Цветовая тема === */
+@theme {
+  --color-bg-main: #0E0E10;
+  --color-card-bg: rgba(0, 0, 0, 0.8);
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
+  --color-accent-purple: #8B5CF6;
+  --color-accent-blue: #3B82F6;
+  --color-accent-secondary: #6366F1;
+
+  --color-text-primary: #E2E8F0;
+  --color-text-secondary: #94A3B8;
+
+  --color-success: #10B981;
+  --color-error: #EF4444;
 }
