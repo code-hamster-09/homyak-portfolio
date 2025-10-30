@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -35,7 +36,7 @@ export default function Home() {
           </div>
           <div className="w-full max-w-[400px] aspect-square">
             <Image
-              src="/globe-optimized.svg"
+              src="/homyakImage.jpg"
               alt="Globe illustration"
               width={400}
               height={400}
@@ -61,7 +62,7 @@ export default function Home() {
                 <span className="text-text-secondary">{contact.type}</span>
                 <div className="space-x-8 text-accent-purple text-xl">
                   {contact.value.map((val) => (
-                    <Link key={val} href="#">
+                    <Link className="hover:opacity-80 transition-all duration-200" key={val} href="#">
                       {val}
                     </Link>
                   ))}
@@ -74,6 +75,7 @@ export default function Home() {
           </Link>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
