@@ -2,10 +2,10 @@ import Navigation from "./Navigation";
 
 const Header = () => {
   return (
-    <div className="w-full flex items-center justify-between px-8 py-4 bg-bg-main/85 backdrop-blur-[2px] sticky top-0 left-0 z-50 text-text-primary">
-      <span className="text-accent-purple">{"<DEV/>"}</span>
+    <header className="w-full flex items-center justify-between px-20 py-8 bg-bg-main/85 backdrop-blur-sm sticky top-0 left-0 z-50 text-text-primary border-b border-gray-900">
+      <span className="text-accent-purple text-glow text-2xl font-bold">{"<DEV/>"}</span>
       <Navigation />
-    </div>
+    </header>
   );
 };
 

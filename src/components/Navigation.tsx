@@ -2,20 +2,20 @@ import Link from "next/link";
 
 const Navigation = () => {
   return (
-    <div className="flex gap-4">
-      <nav>
-        <Link href={"/"}>Главная</Link>
-      </nav>
-      <nav>
-        <Link href={"/projects"}>Портфолио</Link>
-      </nav>
-      <nav>
-        <Link href={"/about"}>Обо мне</Link>
-      </nav>
-      <nav>
-        <Link href={"/contact"}>Контакты</Link>
-      </nav>
-    </div>
+    <nav className="flex gap-8 text-lg font-medium">
+      <div>
+        <Link className="hover:text-accent-purple transition-all duration-200" href={"/"}>Главная</Link>
+      </div>
+      <div>
+        <Link className="hover:text-accent-purple transition-all duration-200" href={"/projects"}>Портфолио</Link>
+      </div>
+      <div>
+        <Link className="hover:text-accent-purple transition-all duration-200" href={"/about"}>Обо мне</Link>
+      </div>
+      <div>
+        <Link className="hover:text-accent-purple transition-all duration-200" href={"/contact"}>Контакты</Link>
+      </div>
+    </nav>
   );
 };
 

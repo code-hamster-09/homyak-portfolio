@@ -5,7 +5,7 @@
   --color-bg-main: #0E0E10;
   --color-card-bg: rgba(0, 0, 0, 0.8);
 
-  --color-accent-purple: #8B5CF6;
+  --color-accent-purple: #7b76ff;
   --color-accent-blue: #3B82F6;
   --color-accent-secondary: #6366F1;
 
@@ -14,4 +14,12 @@
 
   --color-success: #10B981;
   --color-error: #EF4444;
+}
+
+.text-glow {
+  text-shadow: 0 0 80px rgba(123, 85, 247, 0.8);
+}
+
+.box-glow {
+  box-shadow: 0 0 150px rgba(144, 85, 247, 0.8);
 }
