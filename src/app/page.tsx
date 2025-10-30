@@ -18,11 +18,11 @@ export default function Home() {
   return (
     <div className="">
       <Header />
-      <main className=" p-20">
+      <main className="p-20 space-y-30">
         <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
           <div className="flex-1 space-y-12">
             <h1 className="text-text-primary text-4xl md:text-5xl lg:text-6xl font-bold">
-              Frontend Developer -{" "}
+              Привет, я{" "}
               <span className="text-accent-purple text-glow">Homyak</span>
             </h1>
             <p className="text-text-secondary text-lg md:text-xl">
@@ -37,7 +37,7 @@ export default function Home() {
           <div className="w-full max-w-[400px] aspect-square">
             <Image
               src="/homyakImage.jpg"
-              alt="Globe illustration"
+              alt="Homyak illustration"
               width={400}
               height={400}
               className="bg-white/10 rounded-full hover:bg-white/20 transition-colors w-full h-full"
@@ -45,7 +45,7 @@ export default function Home() {
             />
           </div>
         </section>
-        <section className="flex flex-col items-center gap-6 mt-30">
+        <section className="flex flex-col items-center gap-6">
           <h2 className="text-6xl text-text-primary font-bold">
             Давайте работать вместе
           </h2>
@@ -53,7 +53,7 @@ export default function Home() {
             Если у вас есть интересный проект или вы хотите обсудить возможности
             сотрудничества, я всегда открыт для общения.
           </p>
-          <div className="flex space-x-3 justify-around p-10 border border-gray-900 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
+          <div className="flex space-x-3 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
             {contacts.map((contact) => (
               <div
                 key={contact.type}

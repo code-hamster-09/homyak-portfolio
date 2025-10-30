@@ -7,7 +7,7 @@ const Navigation = () => {
         <Link className="hover:text-accent-purple transition-all duration-200" href={"/"}>Главная</Link>
       </div>
       <div>
-        <Link className="hover:text-accent-purple transition-all duration-200" href={"/projects"}>Портфолио</Link>
+        <Link className="hover:text-accent-purple transition-all duration-200" href={"/projects"}>Проекты</Link>
       </div>
       <div>
         <Link className="hover:text-accent-purple transition-all duration-200" href={"/about"}>Обо мне</Link>
