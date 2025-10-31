@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import { Book, Camera, Code2, Gamepad2, Music, Palette } from "lucide-react";
 import Image from "next/image";
 
-const page = () => {
+const Page = () => {
   const skills = [
     {
       category: "Frontend",
@@ -120,7 +120,7 @@ const page = () => {
                     <div className="p-3 rounded-2xl bg-accent-purple/10 border border-white/10">
                       <Icon className="h-6 w-6 text-accent-purple" />
                     </div>
-                    <div>
+                    <div className="text-start">
                       <h3 className="text-lg font-semibold mb-2 text-text-primary">
                         {hobby.title}
                       </h3>
@@ -140,4 +140,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

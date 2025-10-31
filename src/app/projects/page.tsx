@@ -3,6 +3,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Image from "next/image";
@@ -129,6 +130,7 @@ const Page = () => {
             <Search className="opacity-50" />
             <Input
               value={searchQuery}
+              type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               className="text-md color-text-secondary"
               placeholder="Поиск проектов..."
@@ -136,7 +138,7 @@ const Page = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {filteredProjects.map((project) => (
-              <div
+              <Card
                 key={project.id}
                 className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative"
               >
@@ -177,7 +179,7 @@ const Page = () => {
                     )}
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </section>
