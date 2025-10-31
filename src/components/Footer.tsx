@@ -29,7 +29,7 @@ const Footer = () => {
             href={"/"}
             className="text-accent-purple text-glow text-2xl font-bold"
           >
-            {"<DEV/>"}
+            {"<Homyak/>"}
           </Link>
           <p className="text-text-secondary font-medium">
             Создаю будущее веб-приложений сегодня

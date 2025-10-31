@@ -46,7 +46,7 @@ export default function Home() {
           </div>
         </section>
         <section className="flex flex-col items-center gap-6">
-          <h2 className="text-6xl text-text-primary font-bold">
+          <h2 className="text-5xl text-text-primary font-bold">
             Давайте работать вместе
           </h2>
           <p className="text-xl text-text-secondary">
@@ -62,7 +62,11 @@ export default function Home() {
                 <span className="text-text-secondary">{contact.type}</span>
                 <div className="space-x-8 text-accent-purple text-xl">
                   {contact.value.map((val) => (
-                    <Link className="hover:opacity-80 transition-all duration-200" key={val} href="#">
+                    <Link
+                      className="hover:opacity-80 transition-all duration-200"
+                      key={val}
+                      href="#"
+                    >
                       {val}
                     </Link>
                   ))}

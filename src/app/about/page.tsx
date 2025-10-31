@@ -80,7 +80,9 @@ const page = () => {
           </div>
         </section>
         <section className="">
-          <h2 className="text-4xl text-text-primary font-bold text-center">Навыки</h2>
+          <h2 className="text-4xl text-text-primary font-bold text-center">
+            Навыки
+          </h2>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10">
             {skills.map((skill) => (
               <div
@@ -108,20 +110,27 @@ const page = () => {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {hobbies.map((hobby) => {
-              const Icon = hobby.icon
+              const Icon = hobby.icon;
               return (
-                <div key={hobby.title} className="border bg-white/5 border-white/10 p-6 rounded-3xl">
+                <div
+                  key={hobby.title}
+                  className="border bg-white/5 border-white/10 p-6 rounded-3xl"
+                >
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-2xl bg-accent-purple/10 border border-white/10">
                       <Icon className="h-6 w-6 text-accent-purple" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-2 text-text-primary">{hobby.title}</h3>
-                      <p className="text-sm text-text-secondary">{hobby.description}</p>
+                      <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                        {hobby.title}
+                      </h3>
+                      <p className="text-sm text-text-secondary">
+                        {hobby.description}
+                      </p>
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </section>
