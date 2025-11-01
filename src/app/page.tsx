@@ -1,8 +1,13 @@
+"use client";
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { ModalExample } from "@/components/ui/modal";
+import { useHotkey } from "@/hooks/useHotkey";
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useState } from "react";
 
 type ContactType = {
   type: string;
@@ -15,8 +20,23 @@ export default function Home() {
     { type: "Телефон", value: ["+7 (999) 123-45-67"] },
     { type: "Социальные сети", value: ["Twitter", "LinkedIn", "GitHub"] },
   ];
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  // Функции для управления состоянием
+  const openModal = useCallback(() => setIsModalOpen(true), []);
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
+
+  // --- Использование: вот как вы вешаете действие на хоткей ---
+
+  // Открытие модалки по 'Control+k' (Ctrl + K)
+  useHotkey("Control+k", openModal);
+
+  // Закрытие модалки по 'Escape' (Esc)
+  useHotkey("Escape", closeModal);
   return (
     <div className="">
+      {/* Обычная кнопка-триггер */}
+      <ModalExample isOpen={isModalOpen} onClose={closeModal} />
       <Header />
       <main className="p-20 space-y-30">
         <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
@@ -49,7 +69,7 @@ export default function Home() {
           <h2 className="text-5xl text-text-primary font-bold">
             Давайте работать вместе
           </h2>
-          <p className="text-xl text-text-secondary">
+          <p className="text-xl text-text-secondary max-w-3xl text-center">
             Если у вас есть интересный проект или вы хотите обсудить возможности
             сотрудничества, я всегда открыт для общения.
           </p>

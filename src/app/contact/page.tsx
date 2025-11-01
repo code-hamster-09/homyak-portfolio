@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,13 +12,13 @@ import Link from "next/link";
 import { useState } from "react";
 
 const socialLinks = [
-  { name: "Twitter", href: "https://twitter.com/", icon: Github },
+  { name: "Twitter", href: "https://twitter.com/", icon: Twitter },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/mutalif-sagilan-982248347/",
     icon: Linkedin,
   },
-  { name: "GitHub", href: "https://github.com/code-hamster-09", icon: Twitter },
+  { name: "GitHub", href: "https://github.com/code-hamster-09", icon: Github },
 ];
 
 const Page = () => {
@@ -139,6 +140,7 @@ const Page = () => {
           </aside>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };
