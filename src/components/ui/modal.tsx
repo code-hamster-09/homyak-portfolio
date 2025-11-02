@@ -1,18 +1,38 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "./input";
+import { useRouter } from "next/navigation";
 
 export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
 }) => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
-    if (isOpen && inputRef.current) inputRef.current?.focus();
-  }, []);
+    if (!isOpen) return;
+    if (inputRef.current) inputRef.current?.focus();
+    const handleEnter = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (inputValue === "admin123") {
+          router.push("/admin")
+          onClose();
+        } else {
+          alert("Неверный пароль. Попробуйте еще раз.");
+        }
+        setInputValue("");
+      }
+    };
+    window.addEventListener("keydown", handleEnter);
+    return () => {
+      window.removeEventListener("keydown", handleEnter);
+    };
+  }, [isOpen, onClose, inputValue, router]);
 
-  if (!isOpen) return null;
+  if (!isOpen) return;
 
   return (
     <div
@@ -28,6 +48,8 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
           ref={inputRef}
           className="px-3 py-2 rounded-2xl border border-text-secondary/30 bg-text-secondary/20"
           type="password"
+          onChange={(e) => setInputValue(e.target.value)}
+          value={inputValue}
           autoFocus
         />
       </div>
