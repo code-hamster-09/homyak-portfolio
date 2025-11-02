@@ -18,6 +18,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
 
   // Открытие модалки по 'Control+k' (Ctrl + K)
   useHotkey("Control+k+Alt", openModal);
+  useHotkey("Control+л+Alt", openModal);
 
   // Закрытие модалки по 'Escape' (Esc)
   useHotkey("Escape", closeModal);
