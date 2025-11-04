@@ -50,13 +50,13 @@ const Page = () => {
   return (
     <div>
       <Header />
-      <main className="space-y-30 p-20">
+      <main className="space-y-30 p-4 sm:p-12 md:p-20">
         <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
           <div className="flex-1">
-            <h1 className="text-text-primary text-4xl md:text-5xl lg:text-6xl font-bold mb-20">
+            <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-20">
               Обо <span className="text-accent-purple text-glow">мне</span>
             </h1>
-            <p className="text-text-secondary text-lg md:text-xl">
+            <p className="text-text-secondary md:text-lg">
               Привет! Я Frontend разработчик с страстью к созданию красивых и
               функциональных веб-приложений. Мой путь в программировании начался
               несколько лет назад, и с тех пор я постоянно изучаю новые
@@ -83,18 +83,18 @@ const Page = () => {
           <h2 className="text-4xl text-text-primary font-bold text-center">
             Навыки
           </h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {skills.map((skill) => (
               <div
                 key={skill.category}
                 className="p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm"
               >
-                <h3 className="text-2xl text-accent-purple font-bold mb-4">
+                <h3 className="text-xl text-accent-purple font-bold mb-4">
                   {skill.category}
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   {skill.items.map((item) => (
-                    <li key={item} className="text-text-secondary">
+                    <li key={item} className="text-text-secondary text-sm">
                       {item}
                     </li>
                   ))}
@@ -121,10 +121,10 @@ const Page = () => {
                       <Icon className="h-6 w-6 text-accent-purple" />
                     </div>
                     <div className="text-start">
-                      <h3 className="text-lg font-semibold mb-2 text-text-primary">
+                      <h3 className="text-md font-semibold mb-2 text-text-primary">
                         {hobby.title}
                       </h3>
-                      <p className="text-sm text-text-secondary">
+                      <p className="text-xs text-text-secondary">
                         {hobby.description}
                       </p>
                     </div>

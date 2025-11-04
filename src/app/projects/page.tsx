@@ -118,12 +118,12 @@ const Page = () => {
   return (
     <div>
       <Header />
-      <main className="p-20 space-y-30">
+      <main className="p-4 sm:p-12 md:p-20 space-y-30">
         <section className="space-y-6 flex flex-col items-center">
-          <h1 className="text-text-primary text-4xl md:text-5xl lg:text-6xl font-bold">
+          <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold">
             Мои <span className="text-accent-purple text-glow">проекты</span>
           </h1>
-          <p className="text-text-secondary text-lg md:text-xl">
+          <p className="text-text-secondary text-md md:text-lg text-center">
             Коллекция моих работ, от веб-приложений до AI проектов
           </p>
           <div className="flex flex-row items-center gap-2 px-4 py-2 w-full max-w-md border border-white/10 rounded-2xl bg-text-secondary/5 backdrop-blur-sm">

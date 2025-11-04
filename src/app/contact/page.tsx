@@ -26,16 +26,16 @@ const Page = () => {
   return (
     <div>
       <Header />
-      <main className="p-20 space-y-10">
-        <h1 className="text-text-primary text-4xl md:text-5xl lg:text-6xl font-bold">
+      <main className="p-4 sm:p-12 md:p-20">
+        <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
           Свяжитесь{" "}
           <span className="text-accent-purple text-glow">со мной</span>
         </h1>
-        <p className="text-text-secondary text-lg md:text-xl">
+        <p className="text-text-secondary text-md md:text-lg mb-8">
           Есть вопрос или предложение? Я всегда открыт для новых возможностей и
           интересных проектов
         </p>
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <section className="grid grid-cols-1 lg:grid-cols-3 lg:space-x-6 space-y-6">
           <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative col-span-2">
             <h2 className="text-xl text-text-primary font-bold">Отправить сообщение</h2>
             <form className="space-y-6">

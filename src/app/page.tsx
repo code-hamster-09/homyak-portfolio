@@ -21,14 +21,14 @@ export default function Home() {
     <div className="">
       {/* Обычная кнопка-триггер */}
       <Header />
-      <main className="p-20 space-y-30">
+      <main className="p-4 sm:p-12 md:p-20 space-y-30">
         <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
           <div className="flex-1 space-y-12">
-            <h1 className="text-text-primary text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h1 className="text-text-primary text-4xl md:text-5xl lg:text-5xl font-bold">
               Привет, я{" "}
               <span className="text-accent-purple text-glow">Homyak</span>
             </h1>
-            <p className="text-text-secondary text-lg md:text-xl">
+            <p className="text-text-secondary text-md md:text-lg">
               Создаю современные веб-приложения с фокусом на пользовательский
               опыт и производительность. Специализируюсь на React, Next.js и
               TypeScript.
@@ -49,14 +49,14 @@ export default function Home() {
           </div>
         </section>
         <section className="flex flex-col items-center gap-6">
-          <h2 className="text-5xl text-text-primary font-bold">
+          <h2 className="text-4xl text-text-primary font-bold">
             Давайте работать вместе
           </h2>
-          <p className="text-xl text-text-secondary max-w-3xl text-center">
+          <p className="text-lg text-text-secondary max-w-2xl text-center">
             Если у вас есть интересный проект или вы хотите обсудить возможности
             сотрудничества, я всегда открыт для общения.
           </p>
-          <div className="flex space-x-3 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
+          <div className="flex md:flex-row flex-col space-x-3 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
             {contacts.map((contact) => (
               <div
                 key={contact.type}
