@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export type Project = {
@@ -133,53 +134,52 @@ const Page = () => {
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               className="text-md color-text-secondary"
-              placeholder="Поиск проектов..."
+              placeholder="Поиск проектов..." 
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {filteredProjects.map((project) => (
-              <Card
-                key={project.id}
-                className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative"
-              >
-                {project.featured && (
-                  <Badge className="bg-accent-purple absolute top-6 right-6">
-                    Featured
-                  </Badge>
-                )}
-                <div className="w-full lg:w-1/3 h-auto">
-                  <Image
-                    width={100}
-                    height={100}
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover rounded-2xl"
-                  />
-                </div>
-                <div className="flex-1 space-y-4">
-                  <h2 className="text-2xl text-text-primary font-bold">
-                    {project.title}
-                  </h2>
-                  <p className="text-text-secondary line-clamp-2">
-                    {project.shortDescription}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0, 3).map((tech) => (
-                      <Badge
-                        key={tech}
-                        className="bg-accent-purple/20 text-accent-purple"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <Badge className="px-3 bg-text-secondary/20 text-text-secondary rounded-full text-sm font-medium">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
+              <Link key={project.id} href={"projects/" + project.id}>
+                <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative">
+                  {project.featured && (
+                    <Badge className="bg-accent-purple absolute top-6 right-6">
+                      Featured
+                    </Badge>
+                  )}
+                  <div className="w-full lg:w-1/3 h-auto">
+                    <Image
+                      width={100}
+                      height={100}
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover rounded-2xl"
+                    />
                   </div>
-                </div>
-              </Card>
+                  <div className="flex-1 space-y-4">
+                    <h2 className="text-2xl text-text-primary font-bold">
+                      {project.title}
+                    </h2>
+                    <p className="text-text-secondary line-clamp-2">
+                      {project.shortDescription}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0, 3).map((tech) => (
+                        <Badge
+                          key={tech}
+                          className="bg-accent-purple/20 text-accent-purple"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <Badge className="px-3 bg-text-secondary/20 text-text-secondary rounded-full text-sm font-medium">
+                          +{project.technologies.length - 3}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
