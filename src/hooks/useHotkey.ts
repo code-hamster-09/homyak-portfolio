@@ -1,6 +1,6 @@
 // hooks/useHotkey.ts
 
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from "react";
 
 // Тип для функций обратного вызова
 type Callback = () => void;
@@ -11,47 +11,52 @@ type Callback = () => void;
  * @param callback - Функция, которую нужно выполнить.
  */
 export function useHotkey(keyCombination: string, callback: Callback): void {
-  
   // Создаем стабильную функцию-обработчик с помощью useCallback
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    
-    // 1. Разбиваем ожидаемое сочетание на части: ["control", "k"]
-    const keys = keyCombination.split('+').map(k => k.trim().toLowerCase());
-    
-    // 2. Определяем, какие модификаторы (Ctrl, Shift, Alt) ожидаются
-    const hasControl = keys.includes('control');
-    const hasShift = keys.includes('shift');
-    const hasAlt = keys.includes('alt');
-    
-    // 3. Проверяем, нажимаются ли ожидаемые модификаторы
-    const isControlPressed = hasControl === event.ctrlKey;
-    const isShiftPressed = hasShift === event.shiftKey;
-    const isAltPressed = hasAlt === event.altKey;
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const keys = keyCombination
+        .toLowerCase()
+        .split("+")
+        .map((k) => k.trim());
+      const primaryKey = keys.find(
+        (k) => !["control", "shift", "alt", "meta"].includes(k)
+      );
 
-    // 4. Находим основную клавишу (не модификатор)
-    const primaryKey = keys.find(k => k !== 'control' && k !== 'shift' && k !== 'alt');
-    
-    // 5. Проверяем, что основная клавиша нажата
-    const isKeyPressed = primaryKey ? event.key.toLowerCase() === primaryKey : false;
+      // Проверка модификаторов
+      const modifiersMatch =
+        (!keys.includes("control") || event.ctrlKey) &&
+        (!keys.includes("shift") || event.shiftKey) &&
+        (!keys.includes("alt") || event.altKey) &&
+        (!keys.includes("meta") || event.metaKey); // для Mac
 
-    // 6. Игнорируем, если фокус находится в поле ввода (чтобы не перехватывать текст)
-    const target = event.target as HTMLElement;
-    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
-    
-    // 7. Если все совпало (Control/Shift/Alt + Клавиша)
-    if (isKeyPressed && isControlPressed && isShiftPressed && isAltPressed) {
-      event.preventDefault(); // Останавливаем действие браузера (например, Ctrl+S)
-      callback();             // Вызываем вашу функцию (открыть модалку)
-    }
-  }, [keyCombination, callback]); 
+      const isKeyPressed = primaryKey
+        ? event.key.toLowerCase() === primaryKey
+        : false;
+
+      const target = event.target as HTMLElement;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      )
+        return;
+
+      if (isKeyPressed && modifiersMatch) {
+        event.preventDefault();
+        callback();
+      }
+    },
+    [keyCombination, callback]
+  );
 
   // 8. useEffect для добавления/удаления слушателя
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     // Функция очистки: ОЧЕНЬ ВАЖНО для React/Next.js
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
 }

@@ -23,7 +23,7 @@ export default function Home() {
       <Header />
       <main className="p-4 sm:p-12 md:p-20 space-y-30">
         <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
-          <div className="flex-1 space-y-12">
+          <div className="flex flex-col lg:text-start lg:items-start flex-1 space-y-12 text-center items-center">
             <h1 className="text-text-primary text-4xl md:text-5xl lg:text-5xl font-bold">
               Привет, я{" "}
               <span className="text-accent-purple text-glow">Homyak</span>
@@ -56,14 +56,14 @@ export default function Home() {
             Если у вас есть интересный проект или вы хотите обсудить возможности
             сотрудничества, я всегда открыт для общения.
           </p>
-          <div className="flex md:flex-row flex-col space-x-3 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
+          <div className="flex md:flex-row flex-col gap-6 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
             {contacts.map((contact) => (
               <div
                 key={contact.type}
-                className="flex flex-col space-y-2 font-medium"
+                className="flex flex-col md:space-y-2 font-medium"
               >
                 <span className="text-text-secondary">{contact.type}</span>
-                <div className="space-x-8 text-accent-purple text-xl">
+                <div className="space-x-6 text-accent-purple lg:text-xl">
                   {contact.value.map((val) => (
                     <Link
                       className="hover:opacity-80 transition-all duration-200"

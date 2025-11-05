@@ -22,14 +22,14 @@ const Footer = () => {
     ],
   };
   return (
-    <footer>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 sm:px-10 md:px-20 py-6 md:py-10 bg-bg-main/85 border-t border-white/10 gap-18">
+    <footer className="px-4 sm:px-10 md:px-20 py-6 md:py-10 bg-bg-main/85 border-t border-white/10 space-y-10">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-18">
         <div className="flex space-y-4 flex-col">
           <Link
             href={"/"}
             className="text-accent-purple text-glow text-2xl font-bold"
           >
-            {"<Homyak/>"}
+            {"<HomyakVerse/>"}
           </Link>
           <p className="text-text-secondary font-medium">
             Создаю будущее веб-приложений сегодня
@@ -85,7 +85,7 @@ const Footer = () => {
           })}
         </div>
       </div>
-      <div className="mb-4 md:mb-0">
+      <div className="text-center text-text-secondary border-t border-white/10 bg-bg-main/85 pt-4">
         &copy; {new Date().getFullYear()} Homyak. All rights reserved.
       </div>
     </footer>
