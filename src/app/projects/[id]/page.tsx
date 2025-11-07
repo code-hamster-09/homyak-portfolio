@@ -2,8 +2,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, LinkIcon } from "lucide-react";
 import Link from "next/link";
+import { Project } from "../page";
 
-const p = {
+const p:Project = {
   id: 1,
   title: "E-commerce Platform",
   shortDescription:
