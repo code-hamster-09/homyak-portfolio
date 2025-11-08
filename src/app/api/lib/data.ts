@@ -1,5 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose';
-import connectToDatabase from './db';
+import mongoose, { Document, Schema } from "mongoose";
+import connectToDatabase from "./db";
 
 interface Project extends Document {
   title: string;
@@ -23,7 +23,8 @@ const ProjectSchema: Schema = new Schema({
   linkDemo: { type: String },
 });
 
-const ProjectModel = mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema);
+const ProjectModel =
+  mongoose.models.Project || mongoose.model<Project>("Project", ProjectSchema);
 
 export const getProjects = async (): Promise<Project[]> => {
   await connectToDatabase();
@@ -51,21 +52,24 @@ export const addProject = async (projectData: {
   return newProject;
 };
 
-export const deleteProject = async (id: string): Promise<any> => {
+export const deleteProject = async (id: string): Promise<Project | null> => {
   await connectToDatabase();
   return ProjectModel.findByIdAndDelete(id);
 };
 
-export const updateProject = async (id: string, projectData: {
-  title?: string;
-  shortDescription?: string;
-  fullDescription?: string;
-  technologies?: string[];
-  image?: string;
-  featured?: boolean;
-  linkGithub?: string;
-  linkDemo?: string;
-}): Promise<Project | null> => {
+export const updateProject = async (
+  id: string,
+  projectData: {
+    title?: string;
+    shortDescription?: string;
+    fullDescription?: string;
+    technologies?: string[];
+    image?: string;
+    featured?: boolean;
+    linkGithub?: string;
+    linkDemo?: string;
+  }
+): Promise<Project | null> => {
   await connectToDatabase();
   return ProjectModel.findByIdAndUpdate(id, projectData, { new: true });
 };

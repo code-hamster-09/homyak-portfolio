@@ -1,8 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "./input";
-import { useRouter } from "next/navigation";
 
 export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
@@ -17,12 +17,24 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     const handleEnter = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        if (inputValue === "admin123") {
-          router.push("/admin")
-          onClose();
-        } else {
-          alert("Неверный пароль. Попробуйте еще раз.");
-        }
+        fetch("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ password: inputValue }),
+        }).then((res) => {
+          if (res.ok) {
+            localStorage.setItem("adminToken", JSON.stringify(res.body));
+            router.push("/admin");
+            onClose();
+          } else {
+            alert("Неверный пароль. Попробуйте еще раз.");
+          }
+        });
+        // if (inputValue === "admin123") {
+        //   router.push("/admin")
+        //   onClose();
+        // } else {
+        //   alert("Неверный пароль. Попробуйте еще раз.");
+        // }
         setInputValue("");
       }
     };
