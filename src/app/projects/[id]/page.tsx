@@ -1,11 +1,15 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, LinkIcon } from "lucide-react";
 import Link from "next/link";
 import { Project } from "../page";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-const p:Project = {
-  id: 1,
+const pp:Project = {
+  _id: "1",
   title: "E-commerce Platform",
   shortDescription:
     "Полнофункциональная платформа электронной коммерции с корзиной покупок и интеграцией платежей",
@@ -18,17 +22,43 @@ const p:Project = {
     "PostgreSQL",
     "Tailwind CSS",
   ],
-  image: "/modern-ecommerce-dashboard.png",
+  image: "/file.svg",
   featured: true,
   linkGithub: "https://github.com",
   linkDemo: "https://example.com",
 };
 
 const Page = () => {
+  const [p, setP] = useState<Project>({
+    _id: "",
+    title: "",
+    shortDescription: "",
+    fullDescription: "",
+    technologies: [],
+    image: "/file.svg",
+    featured: false,
+    linkGithub: "",
+    linkDemo: "",
+  })
+  const params = useParams()
+  const id = params.id as string
+  console.log(id)
+  useEffect(() => {
+    fetch(`/api/projects/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(res => res.json()).then(data => {
+      console.log(data)
+      setP(data)
+    })
+  }, [])
   return (
     <div className="">
       <h1 className="font-bold text-text-primary text-4xl">{p.title}</h1>
       <p className="text-text-secondary">{p.shortDescription}</p>
+      <img src={p.image} alt={p.title} className="w-[200px] h-[200px] object-cover" />
       <Button className="mt-6 px-6 py-5 rounded-xl text-sm">
         <LinkIcon /> Посмотреть проект
       </Button>
@@ -73,14 +103,14 @@ const Page = () => {
             <div className="gap-2 text-text-secondary">
               <Link
                 className="flex gap-2 text-center items-center hover:text-accent-purple transition-all"
-                href={p.linkDemo}
+                href={p.linkDemo || "#"}
               >
                 <LinkIcon className="w-4" />
                 Живай демонстрация
               </Link>
               <Link
                 className="flex gap-2 text-center items-center hover:text-accent-purple transition-all"
-                href={p.linkGithub}
+                href={p.linkGithub || "#"}
               >
                 <Github className="w-4" />
                 GitHub репозиторий

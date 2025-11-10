@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 import connectToDatabase from "./db";
 
 interface Project extends Document {
@@ -6,7 +6,7 @@ interface Project extends Document {
   shortDescription: string;
   fullDescription: string;
   technologies: string[];
-  image: string;
+  image?: string;
   featured: boolean;
   linkGithub?: string;
   linkDemo?: string;
@@ -17,7 +17,7 @@ const ProjectSchema: Schema = new Schema({
   shortDescription: { type: String, required: true },
   fullDescription: { type: String, required: true },
   technologies: { type: [String], required: true },
-  image: { type: String, required: true },
+  image: { type: String },
   featured: { type: Boolean, default: false },
   linkGithub: { type: String },
   linkDemo: { type: String },
@@ -33,7 +33,15 @@ export const getProjects = async (): Promise<Project[]> => {
 
 export const getProjectById = async (id: string): Promise<Project | null> => {
   await connectToDatabase();
-  return ProjectModel.findById(id);
+  
+  // Проверяем, является ли id валидным ObjectId
+  if (!Types.ObjectId.isValid(id)) {
+    console.warn(`Invalid Project ID format: ${id}`);
+    return null; // Возвращаем null, если ID невалиден
+  }
+  const objectId = new Types.ObjectId(id);
+  const project = await ProjectModel.findById(objectId);
+  return project;
 };
 
 export const addProject = async (projectData: {

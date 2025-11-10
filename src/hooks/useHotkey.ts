@@ -29,9 +29,10 @@ export function useHotkey(keyCombination: string, callback: Callback): void {
         (!keys.includes("alt") || event.altKey) &&
         (!keys.includes("meta") || event.metaKey); // для Mac
 
-      const isKeyPressed = primaryKey
-        ? event.key.toLowerCase() === primaryKey
-        : false;
+      const isKeyPressed =
+        primaryKey && event.key
+          ? event.key.toLowerCase() === primaryKey
+          : false;
 
       const target = event.target as HTMLElement;
       if (

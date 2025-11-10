@@ -12,23 +12,21 @@ export const authenticateToken = async (req: NextRequest) => {
   const authHeader = req.headers.get("authorization");
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (token == null)
+  if (token == null) {
     return NextResponse.json(
       { message: "Authentication token required" },
       { status: 401 }
     );
+  }
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY) as DecodedToken;
-    // Здесь вы можете добавить decoded.id к req, если это необходимо для дальнейшей обработки
-    // В Next.js API Routes это делается по-другому, но для простоты пока вернем true/false
+
+    (req as any).user = decoded;
     return true;
-  } catch (error: unknown) {
-    console.error("Token verification error:", error);
-    const message =
-      error instanceof Error ? error.message : "Unknown error occurred";
+  } catch (error: any) {
     return NextResponse.json(
-      { message: "Invalid or expired token", error: message },
+      { message: "Invalid or expired token", error: error.message },
       { status: 403 }
     );
   }

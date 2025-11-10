@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const project = await getProjectById(id);
@@ -40,7 +40,7 @@ export async function PATCH(
   }
 
   try {
-    const { id } = params;
+    const { id } = await params;
     const {
       title,
       shortDescription,
@@ -91,7 +91,7 @@ export async function DELETE(
     return authResult; // Возвращает ошибку, если аутентификация не удалась
   }
 
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const deletedProject = await deleteProject(id);

@@ -1,3 +1,5 @@
+import CreateProject from "@/components/CreateProject";
+
 const Page = () => {
   return (
     <div className="p-20">
@@ -7,6 +9,7 @@ const Page = () => {
       <p className="text-text-secondary mt-4 max-w-lg">
         Управление контентом и настройками портфолио.
       </p>
+      <CreateProject />
     </div>
   );
 };

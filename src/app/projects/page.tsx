@@ -8,10 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type Project = {
-  id: number; // уникальный id
+  _id: string; // уникальный id
   title: string; // название проекта
   shortDescription: string; // краткое описание для карточки
   fullDescription: string; // детальное описание для отдельной страницы
@@ -22,9 +22,9 @@ export type Project = {
   linkDemo?: string; // ссылка на демо
 };
 
-const projects: Project[] = [
+const projectss: Project[] = [
   {
-    id: 1,
+    _id: "1",
     title: "E-commerce Platform",
     shortDescription:
       "Полнофункциональная платформа электронной коммерции с корзиной покупок и интеграцией платежей",
@@ -37,13 +37,13 @@ const projects: Project[] = [
       "PostgreSQL",
       "Tailwind CSS",
     ],
-    image: "/modern-ecommerce-dashboard.png",
+    image: "/file.svg",
     featured: true,
     linkGithub: "https://github.com",
     linkDemo: "https://example.com",
   },
   {
-    id: 2,
+    _id: "2",
     title: "AI Chat Application",
     shortDescription:
       "Приложение для чата в реальном времени с интеграцией AI для умных ответов",
@@ -56,7 +56,7 @@ const projects: Project[] = [
     linkDemo: "https://example.com",
   },
   {
-    id: 3,
+    _id: "3",
     title: "Portfolio Dashboard",
     shortDescription:
       "Аналитическая панель для отслеживания портфеля с визуализацией данных в реальном времени",
@@ -68,7 +68,7 @@ const projects: Project[] = [
     linkGithub: "https://github.com",
   },
   {
-    id: 4,
+    _id: "4",
     title: "Task Management System",
     shortDescription: "Система управления задачами с drag-and-drop интерфейсом",
     fullDescription:
@@ -80,7 +80,7 @@ const projects: Project[] = [
     linkDemo: "https://example.com",
   },
   {
-    id: 5,
+    _id: "5",
     title: "Weather Forecast App",
     shortDescription: "Приложение прогноза погоды с красивыми анимациями",
     fullDescription:
@@ -91,7 +91,7 @@ const projects: Project[] = [
     linkGithub: "https://github.com",
   },
   {
-    id: 6,
+    _id: "6",
     title: "Blog Platform",
     shortDescription: "Платформа для блогов с markdown редактором",
     fullDescription:
@@ -106,6 +106,18 @@ const projects: Project[] = [
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [projects, setProjects] = useState<Project[]>([]);
+  useEffect(() => {
+    fetch("/api/projects", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(res => res.json()).then(data => {
+      console.log(data)
+      setProjects(data)
+    })
+  }, [])
   const filteredProjects = projects.filter(
     (project) =>
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -139,23 +151,21 @@ const Page = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {filteredProjects.map((project) => (
-              <Link key={project.id} href={"projects/" + project.id}>
-                <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative">
+              <Link key={project._id} href={"projects/" + project._id}>
+                <Card className="border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative p-0 overflow-hidden">
                   {project.featured && (
                     <Badge className="bg-accent-purple absolute top-6 right-6">
                       Featured
                     </Badge>
                   )}
-                  <div className="w-full lg:w-1/3 h-auto">
-                    <Image
-                      width={100}
-                      height={100}
+                  <div className="w-full h-auto">
+                    <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover rounded-2xl"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="flex-1 space-y-4">
+                  <div className="p-6 flex-1 space-y-4">
                     <h2 className="text-2xl text-text-primary font-bold">
                       {project.title}
                     </h2>

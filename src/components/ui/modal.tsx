@@ -19,16 +19,20 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         e.preventDefault();
         fetch("/api/auth/login", {
           method: "POST",
-          body: JSON.stringify({ password: inputValue }),
-        }).then((res) => {
-          if (res.ok) {
-            localStorage.setItem("adminToken", JSON.stringify(res.body));
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username: "admin", password: inputValue }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            localStorage.setItem("auth_token", res.token);
             router.push("/admin");
             onClose();
-          } else {
-            alert("Неверный пароль. Попробуйте еще раз.");
-          }
-        });
+          })
+          .catch((err) => {
+            alert("Неверный пароль. Попробуйте еще раз." + err);
+          });
         // if (inputValue === "admin123") {
         //   router.push("/admin")
         //   onClose();
