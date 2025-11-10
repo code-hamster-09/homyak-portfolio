@@ -1,13 +1,11 @@
-import crypto from 'crypto';
-import { promises as fs } from 'fs';
+import { v2 as cloudinary } from 'cloudinary';
 import { NextRequest, NextResponse } from "next/server";
-import path from 'path';
 import { authenticateToken } from "../lib/auth";
 import {
-    addProject,
-    deleteProject,
-    getProjects,
-    updateProject,
+  addProject,
+  deleteProject,
+  getProjects,
+  updateProject,
 } from "../lib/data";
 
 export async function GET() {
@@ -31,11 +29,14 @@ export async function POST(req: NextRequest) {
     return authResult; // Возвращаем ошибку авторизации
   }
 
-  try {
-    console.log('Received POST /api/projects request.');
-    const formData = await req.formData();
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
 
-    console.log('FormData received:', formData);
+  try {
+    const formData = await req.formData();
 
     const title = formData.get('title') as string;
     const shortDescription = formData.get('shortDescription') as string;
@@ -46,26 +47,19 @@ export async function POST(req: NextRequest) {
     const linkGithub = formData.get('linkGithub') as string | undefined;
     const linkDemo = formData.get('linkDemo') as string | undefined;
 
-    console.log('Parsed form data - title:', title);
-    console.log('Parsed form data - imageFile exists:', !!imageFile);
-
     let imageUrl = '';
     if (imageFile) {
-      console.log('Processing image file.');
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-      await fs.mkdir(uploadDir, { recursive: true });
-      console.log('Upload directory ensured:', uploadDir);
+      const arrayBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const base64Image = `data:${imageFile.type};base64,${buffer.toString('base64')}`;
 
-      const uniqueFileName = `${crypto.randomBytes(16).toString('hex')}-${imageFile.name}`;
-      const filePath = path.join(uploadDir, uniqueFileName);
-      const buffer = Buffer.from(await imageFile.arrayBuffer());
-      await fs.writeFile(filePath, buffer);
-      imageUrl = `/uploads/${uniqueFileName}`;
-      console.log('Image saved to:', imageUrl);
+      const uploadResponse = await cloudinary.uploader.upload(base64Image, {
+        folder: 'homyak-portfolio', // Папка на Cloudinary
+      });
+      imageUrl = uploadResponse.secure_url;
     }
 
     const technologies = JSON.parse(technologiesString);
-    console.log('Parsed technologies:', technologies);
 
     if (
       !title ||
@@ -74,13 +68,6 @@ export async function POST(req: NextRequest) {
       !technologies ||
       !imageUrl
     ) {
-      console.error('Missing required fields for project creation.', {
-        title: !!title,
-        shortDescription: !!shortDescription,
-        fullDescription: !!fullDescription,
-        technologies: !!technologies,
-        imageUrl: !!imageUrl,
-      });
       return NextResponse.json(
         {
           message:
@@ -90,7 +77,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log('Attempting to add project to DB with image URL:', imageUrl);
     const newProject = await addProject({
       title,
       shortDescription,
@@ -101,7 +87,6 @@ export async function POST(req: NextRequest) {
       linkGithub,
       linkDemo,
     });
-    console.log('Project added successfully:', newProject._id);
     return NextResponse.json(newProject, { status: 201 });
   } catch (error: unknown) {
     console.error("Error in POST /api/projects:", error);
