@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 import path from 'path';
 import { authenticateToken } from "../lib/auth";
 import {
-  addProject,
-  deleteProject,
-  getProjects,
-  updateProject,
+    addProject,
+    deleteProject,
+    getProjects,
+    updateProject,
 } from "../lib/data";
 
 export async function GET() {
@@ -32,7 +32,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    console.log('Received POST /api/projects request.');
     const formData = await req.formData();
+
+    console.log('FormData received:', formData);
 
     const title = formData.get('title') as string;
     const shortDescription = formData.get('shortDescription') as string;
@@ -43,19 +46,26 @@ export async function POST(req: NextRequest) {
     const linkGithub = formData.get('linkGithub') as string | undefined;
     const linkDemo = formData.get('linkDemo') as string | undefined;
 
+    console.log('Parsed form data - title:', title);
+    console.log('Parsed form data - imageFile exists:', !!imageFile);
+
     let imageUrl = '';
     if (imageFile) {
+      console.log('Processing image file.');
       const uploadDir = path.join(process.cwd(), 'public', 'uploads');
       await fs.mkdir(uploadDir, { recursive: true });
+      console.log('Upload directory ensured:', uploadDir);
 
       const uniqueFileName = `${crypto.randomBytes(16).toString('hex')}-${imageFile.name}`;
       const filePath = path.join(uploadDir, uniqueFileName);
       const buffer = Buffer.from(await imageFile.arrayBuffer());
       await fs.writeFile(filePath, buffer);
       imageUrl = `/uploads/${uniqueFileName}`;
+      console.log('Image saved to:', imageUrl);
     }
 
     const technologies = JSON.parse(technologiesString);
+    console.log('Parsed technologies:', technologies);
 
     if (
       !title ||
@@ -64,6 +74,13 @@ export async function POST(req: NextRequest) {
       !technologies ||
       !imageUrl
     ) {
+      console.error('Missing required fields for project creation.', {
+        title: !!title,
+        shortDescription: !!shortDescription,
+        fullDescription: !!fullDescription,
+        technologies: !!technologies,
+        imageUrl: !!imageUrl,
+      });
       return NextResponse.json(
         {
           message:
@@ -73,6 +90,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log('Attempting to add project to DB with image URL:', imageUrl);
     const newProject = await addProject({
       title,
       shortDescription,
@@ -83,6 +101,7 @@ export async function POST(req: NextRequest) {
       linkGithub,
       linkDemo,
     });
+    console.log('Project added successfully:', newProject._id);
     return NextResponse.json(newProject, { status: 201 });
   } catch (error: unknown) {
     console.error("Error in POST /api/projects:", error);
