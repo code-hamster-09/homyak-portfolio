@@ -1,12 +1,7 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 import { authenticateToken } from "../lib/auth";
-import {
-  addProject,
-  deleteProject,
-  getProjects,
-  updateProject,
-} from "../lib/data";
+import { addProject, getProjects } from "../lib/data";
 
 export async function GET() {
   try {
@@ -38,23 +33,25 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    const title = formData.get('title') as string;
-    const shortDescription = formData.get('shortDescription') as string;
-    const fullDescription = formData.get('fullDescription') as string;
-    const technologiesString = formData.get('technologies') as string;
-    const imageFile = formData.get('image') as File | null;
-    const featured = formData.get('featured') === 'true';
-    const linkGithub = formData.get('linkGithub') as string | undefined;
-    const linkDemo = formData.get('linkDemo') as string | undefined;
+    const title = formData.get("title") as string;
+    const shortDescription = formData.get("shortDescription") as string;
+    const fullDescription = formData.get("fullDescription") as string;
+    const technologiesString = formData.get("technologies") as string;
+    const imageFile = formData.get("image") as File | null;
+    const featured = formData.get("featured") === "true";
+    const linkGithub = formData.get("linkGithub") as string | undefined;
+    const linkDemo = formData.get("linkDemo") as string | undefined;
 
-    let imageUrl = '';
+    let imageUrl = "";
     if (imageFile) {
       const arrayBuffer = await imageFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
-      const base64Image = `data:${imageFile.type};base64,${buffer.toString('base64')}`;
+      const base64Image = `data:${imageFile.type};base64,${buffer.toString(
+        "base64"
+      )}`;
 
       const uploadResponse = await cloudinary.uploader.upload(base64Image, {
-        folder: 'homyak-portfolio', // Папка на Cloudinary
+        folder: "homyak-portfolio", // Папка на Cloudinary
       });
       imageUrl = uploadResponse.secure_url;
     }
@@ -94,102 +91,6 @@ export async function POST(req: NextRequest) {
       error instanceof Error ? error.message : "Unknown error occurred";
     return NextResponse.json(
       { message: "Error creating project", error: message },
-      { status: 500 }
-    );
-  }
-}
-
-export async function PATCH(req: NextRequest) {
-  const authResult = await authenticateToken(req);
-  if (authResult !== true) {
-    return authResult;
-  }
-
-  try {
-    const {
-      id,
-      title,
-      shortDescription,
-      fullDescription,
-      technologies,
-      image,
-      featured,
-      linkGithub,
-      linkDemo,
-    } = await req.json();
-
-    if (!id) {
-      return NextResponse.json(
-        { message: "Project ID is required" },
-        { status: 400 }
-      );
-    }
-
-    const updatedProject = await updateProject(id, {
-      title,
-      shortDescription,
-      fullDescription,
-      technologies,
-      image,
-      featured,
-      linkGithub,
-      linkDemo,
-    });
-
-    if (!updatedProject) {
-      return NextResponse.json(
-        { message: "Project not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(updatedProject, { status: 200 });
-  } catch (error: unknown) {
-    console.error("Error in PATCH /api/projects:", error);
-    const message =
-      error instanceof Error ? error.message : "Unknown error occurred";
-    return NextResponse.json(
-      { message: "Error updating project", error: message },
-      { status: 500 }
-    );
-  }
-}
-
-export async function DELETE(req: NextRequest) {
-  const authResult = await authenticateToken(req);
-  if (authResult !== true) {
-    return authResult;
-  }
-
-  try {
-    const { id } = await req.json();
-
-    if (!id) {
-      return NextResponse.json(
-        { message: "Project ID is required" },
-        { status: 400 }
-      );
-    }
-
-    const deleted = await deleteProject(id);
-
-    if (!deleted) {
-      return NextResponse.json(
-        { message: "Project not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: "Project deleted successfully" },
-      { status: 200 }
-    );
-  } catch (error: unknown) {
-    console.error("Error in DELETE /api/projects:", error);
-    const message =
-      error instanceof Error ? error.message : "Unknown error occurred";
-    return NextResponse.json(
-      { message: "Error deleting project", error: message },
       { status: 500 }
     );
   }

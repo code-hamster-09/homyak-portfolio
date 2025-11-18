@@ -4,11 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, LinkIcon } from "lucide-react";
 import Link from "next/link";
-import { Project } from "../page";
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Project } from "../page";
 
-const pp:Project = {
+const pp: Project = {
   _id: "1",
   title: "E-commerce Platform",
   shortDescription:
@@ -39,27 +39,36 @@ const Page = () => {
     featured: false,
     linkGithub: "",
     linkDemo: "",
-  })
-  const params = useParams()
-  const id = params.id as string
-  console.log(id)
+  });
+  const params = useParams();
+  const id = params.id as string;
+  console.log(id);
   useEffect(() => {
     fetch(`/api/projects/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(res => res.json()).then(data => {
-      console.log(data)
-      setP(data)
     })
-  }, [])
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setP(data);
+      });
+  }, []);
   return (
-    <div className="">
-      <h1 className="font-bold text-text-primary text-4xl">{p.title}</h1>
-      <p className="text-text-secondary">{p.shortDescription}</p>
-      <img src={p.image} alt={p.title} className="w-[200px] h-[200px] object-cover" />
-      <Button className="mt-6 px-6 py-5 rounded-xl text-sm">
+    <div className="p-4 sm:p-12 md:px-20">
+      <Link href={"/projects"} className="text-text-primary hover:bg-transparent bg-transparent p-4">
+        ← Назад
+      </Link>
+      <h1 className="font-bold text-text-primary text-4xl my-4">{p.title}</h1>
+      <p className="text-text-secondary mb-4">{p.shortDescription}</p>
+      <img
+        src={p.image}
+        alt={p.title}
+        className="w-full h-[600px] rounded-4xl object-cover"
+      />
+      <Button className="mt-6 px-6 py-5 rounded-xl text-sm mr-3">
         <LinkIcon /> Посмотреть проект
       </Button>
       <Button variant={"ghost"} className="mt-6 px-6 py-5 rounded-xl text-sm">
@@ -71,7 +80,9 @@ const Page = () => {
             <h2 className="font-bold text-text-primary text-xl mb-2">
               О проекте
             </h2>
-            <p className="text-text-secondary text-sm">{p.fullDescription}</p>
+            <p className="text-text-secondary text-sm wrap-break-word">
+              {p.fullDescription}
+            </p>
           </div>
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">
             <h2 className="font-bold text-text-primary text-xl mb-2">
@@ -86,12 +97,14 @@ const Page = () => {
         </div>
         <div className="col-span-1 space-y-6">
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">
-            <h3 className="font-bold text-text-primary text-lg mb-2">Технологии</h3>
+            <h3 className="font-bold text-text-primary text-lg mb-2">
+              Технологии
+            </h3>
             <div className="">
               {p.technologies.map((tech) => (
                 <Badge
                   key={tech}
-                  className="bg-accent-purple/20 text-accent-purple"
+                  className="bg-accent-purple/20 px-3 border border-accent-purple/30 text-accent-purple mt-2 mr-2 text-sm"
                 >
                   {tech}
                 </Badge>

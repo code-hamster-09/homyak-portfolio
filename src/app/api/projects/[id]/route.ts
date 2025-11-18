@@ -1,6 +1,13 @@
+import { v2 as cloudinary } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 import { authenticateToken } from "../../lib/auth";
 import { deleteProject, getProjectById, updateProject } from "../../lib/data";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function GET(
   req: NextRequest,
@@ -30,7 +37,7 @@ export async function GET(
   }
 }
 
-export async function PATCH(
+export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -41,27 +48,48 @@ export async function PATCH(
 
   try {
     const { id } = await params;
-    const {
-      title,
-      shortDescription,
-      fullDescription,
-      technologies,
-      image,
-      featured,
-      linkGithub,
-      linkDemo,
-    } = await req.json();
 
-    const updatedProject = await updateProject(id, {
-      title,
-      shortDescription,
-      fullDescription,
-      technologies,
-      image,
-      featured,
-      linkGithub,
-      linkDemo,
-    });
+    const formData = await req.formData();
+
+    const title = formData.get("title") as string;
+    const shortDescription = formData.get("shortDescription") as string;
+    const fullDescription = formData.get("fullDescription") as string;
+    const technologiesString = formData.get("technologies") as string;
+    const imageFile = formData.get("image") as File | null;
+    const featured = formData.get("featured") === "true";
+    const linkGithub = formData.get("linkGithub") as string | undefined;
+    const linkDemo = formData.get("linkDemo") as string | undefined;
+
+    let imageUrl: string | undefined = undefined;
+    if (imageFile && imageFile.size > 0) {
+      const arrayBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const base64Image = `data:${imageFile.type};base64,${buffer.toString(
+        "base64"
+      )}`;
+
+      const uploadResponse = await cloudinary.uploader.upload(base64Image, {
+        folder: "portfolio", // Папка на Cloudinary
+      });
+      imageUrl = uploadResponse.secure_url;
+    }
+
+    const technologies = technologiesString
+      ? JSON.parse(technologiesString)
+      : undefined;
+
+    const updatedProjectData = {
+      title: title,
+      shortDescription: shortDescription,
+      fullDescription: fullDescription,
+      technologies: technologies,
+      image: imageUrl,
+      featured: featured,
+      linkGithub: linkGithub,
+      linkDemo: linkDemo,
+    };
+
+    const updatedProject = await updateProject(id, updatedProjectData);
 
     if (updatedProject) {
       return NextResponse.json(updatedProject, { status: 200 });

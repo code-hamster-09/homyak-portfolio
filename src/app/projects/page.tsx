@@ -153,12 +153,12 @@ const Page = () => {
             {filteredProjects.map((project) => (
               <Link key={project._id} href={"projects/" + project._id}>
                 <Card className="border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative p-0 overflow-hidden">
-                  {project.featured && (
+                  {!!project.featured && (
                     <Badge className="bg-accent-purple absolute top-6 right-6">
                       Featured
                     </Badge>
                   )}
-                  <div className="w-full h-auto">
+                  <div className="w-full h-[400px]">
                     <img
                       src={project.image}
                       alt={project.title}
