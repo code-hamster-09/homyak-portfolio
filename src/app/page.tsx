@@ -13,8 +13,8 @@ type ContactType = {
 
 export default function Home() {
   const contacts: ContactType[] = [
-    { type: "Email", value: ["hello@dev.com"] },
-    { type: "Телефон", value: ["+7 (999) 123-45-67"] },
+    { type: "Email", value: ["sagimaks19@gmail.com"] },
+    { type: "Телефон", value: ["+7 (747) 290-52-75"] },
     { type: "Социальные сети", value: ["Twitter", "LinkedIn", "GitHub"] },
   ];
   return (

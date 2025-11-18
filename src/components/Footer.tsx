@@ -16,8 +16,8 @@ const Footer = () => {
       { name: "GitHub", href: "https://github.com/code-hamster-09" },
     ],
     contacts: [
-      { name: "hello@dev.com", href: "#" },
-      { name: "+7 (999) 123-45-67", href: "#" },
+      { name: "sagimaks19@gmail.com", href: "#" },
+      { name: "+7 (747) 290-52-75", href: "#" },
       { name: "Contact", href: "/contact" },
     ],
   };

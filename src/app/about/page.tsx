@@ -7,13 +7,13 @@ const Page = () => {
   const skills = [
     {
       category: "Frontend",
-      items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      items: ["React", "Next.js", "TypeScript", "Redux Toolkit"],
     },
     {
-      category: "Backend",
-      items: ["Node.js", "Python", "PostgreSQL", "MongoDB"],
+      category: "UI & Верстка",
+      items: ["Tailwind CSS", "Адаптивная верстка", "Компонентный подход", "Работа с Figma"],
     },
-    { category: "Tools", items: ["Git", "Docker", "Figma", "VS Code"] },
+    { category: "Инструменты", items: ["Git / GitHub", "Vite", "Figma", "Vercel (деплой)"] },
   ];
   const hobbies = [
     {
