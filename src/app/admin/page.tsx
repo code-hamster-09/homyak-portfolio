@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Project } from "../projects/page";
+import MessageManage from "@/components/MessageManage";
 
 const Page = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -51,6 +52,7 @@ const Page = () => {
       {isEditing && (
         <CreateProject setIsEditing={setIsEditing} project={selectedProject} />
       )}
+      <MessageManage />
       {projects.map((project) => {
         return (
           <div
