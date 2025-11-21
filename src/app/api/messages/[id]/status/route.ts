@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // Явно указываем, что params - это Promise
 ) {
   try {
-    const resolvedParams = await params; // Добавлено: разворачиваем Promise
+    const resolvedParams = await context.params;
     const { id } = resolvedParams;
     // console.log("Получен ID для обновления статуса:", id); // Удалено логирование ID
 
