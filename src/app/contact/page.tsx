@@ -41,7 +41,7 @@ const Page = () => {
     setFormData((prev) => ({ ...prev, ...dataField }));
   };
   const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/messages", {
@@ -60,7 +60,8 @@ const Page = () => {
       }
       toast({
         title: "Оправлено!",
-        description: "Сообщение успешно отправлено",
+        description:
+          "Сообщение успешно отправлено. Если вы не получите ответ, проверьте корректность email.",
         variant: "default",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -153,6 +154,10 @@ const Page = () => {
                 />
               </div>
 
+              <p className="text-sm text-accent-yellow mt-1 flex items-center gap-1">
+                🚨*Убедитесь, что указали корректный email — если он неверен, вы
+                не получите ответ.
+              </p>
               <Button
                 type="submit"
                 disabled={isSubmitting}

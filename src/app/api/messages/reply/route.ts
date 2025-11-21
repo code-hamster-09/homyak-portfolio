@@ -1,4 +1,4 @@
-import { getMessageById, updateMessage } from "@/lib/messages";
+import { getMessageById, updateMessage } from "@/app/api/lib/messages-db";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -53,14 +53,23 @@ export async function POST(request: Request) {
       report.replySent = true;
 
       // Обновление записи
-      message.replied = true;
-      message.replyText = replyText;
-      message.replyAt = new Date().toISOString();
-      await updateMessage(message);
+      await updateMessage(messageId, {
+        replied: true,
+        replyText: replyText,
+        replyAt: new Date(),
+        deliveryStatus: "sent", // Отметить как успешно отправленное
+      });
     } catch (emailError: any) {
       report.errors.push(
         `Ошибка при отправке email пользователю: ${emailError.message}`
       );
+      // Отметить как сбой отправки
+      await updateMessage(messageId, {
+        replied: true, // Все равно считать отвеченным, но с ошибкой доставки
+        replyText: replyText,
+        replyAt: new Date(),
+        deliveryStatus: "failed",
+      });
     }
 
     return NextResponse.json(report);
