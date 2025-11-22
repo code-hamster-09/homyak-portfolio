@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Input } from "./input";
+import { Input } from "../ui/input";
 
 export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
@@ -27,18 +27,12 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
           .then((res) => res.json())
           .then((res) => {
             localStorage.setItem("auth_token", res.token);
-            router.push("/admin");
+            router.push("/admin/projects");
             onClose();
           })
           .catch((err) => {
             alert("Неверный пароль. Попробуйте еще раз." + err);
           });
-        // if (inputValue === "admin123") {
-        //   router.push("/admin")
-        //   onClose();
-        // } else {
-        //   alert("Неверный пароль. Попробуйте еще раз.");
-        // }
         setInputValue("");
       }
     };

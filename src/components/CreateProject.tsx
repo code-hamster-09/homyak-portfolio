@@ -3,11 +3,11 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useToast } from "../hooks/useToast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
 
 interface Project {
   _id?: string;
@@ -132,7 +132,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 md:p-8 border border-white/10 bg-text-secondary/10 rounded-3xl shadow-xl text-gray-100">
+    <div className="w-full mx-auto p-4 md:p-8 border border-white/10 bg-text-secondary/10 rounded-3xl shadow-xl text-gray-100">
       <h2 className="text-3xl font-bold text-center mb-6">
         <span className="text-accent-purple text-glow">
           {project ? "Редактировать" : "Создать"}{" "}
@@ -257,7 +257,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
         <Button
           disabled={isLoading}
-          className="bg-accent-purple hover:bg-accent-purple/80 text-white rounded-2xl p-6 font-medium transition-all duration-200"
+          className="bg-accent-purple hover:bg-accent-purple/80 text-white rounded-2xl p-6 font-medium transition-all duration-200 mr-4"
           type="submit"
         >
           {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}

@@ -1,7 +1,7 @@
-import { Provider } from "@/components/provider";
+import { Provider } from "@/components/layout/provider";
 import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"] });
@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geist.className} font-sans antialiased bg-bg-main text-text-primary`}>
+      <body
+        className={`${geist.className} font-sans antialiased bg-bg-main text-text-primary`}
+      >
         <Provider>
           {children}
           <Toaster />
@@ -27,4 +29,3 @@ export default function RootLayout({
     </html>
   );
 }
-
