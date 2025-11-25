@@ -46,6 +46,7 @@ const ProjectsManage = () => {
         <CreateProject setIsEditing={setIsEditing} project={selectedProject} />
       )}
       <div className="space-y-4">
+        {projects.length === 0 && (<p>Проекты не найдены.</p>)}
         {projects.map((project) => {
           return (
             <div

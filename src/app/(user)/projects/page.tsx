@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import SkeletonItem from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,10 +20,14 @@ export type Project = {
   linkDemo?: string; // ссылка на демо
 };
 
+type StatusType = "idle" | "pending" | "fulfilled" | "rejected";
+
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [projects, setProjects] = useState<Project[]>([]);
-  useEffect(() => {
+  const [status, setStatus] = useState<StatusType>("idle");
+  const getProjects = () => {
+    setStatus("pending");
     fetch("/api/projects", {
       method: "GET",
       headers: {
@@ -31,9 +36,21 @@ const Page = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setProjects(data);
+      })
+      .then(() => {
+        setStatus("fulfilled");
+      })
+      .catch((error) => {
+        console.log(error);
+        setStatus("rejected");
       });
+  };
+  useEffect(() => {
+    void(() => {
+      getProjects()
+    })()
+    window.scrollTo(0, 0);
   }, []);
   const filteredProjects = projects.filter(
     (project) =>
@@ -64,8 +81,8 @@ const Page = () => {
             placeholder="Поиск проектов..."
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {filteredProjects.map((project) => (
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          {status === "fulfilled" && filteredProjects.map((project) => (
             <Link key={project._id} href={"projects/" + project._id}>
               <Card className="border group border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative p-0 overflow-hidden">
                 {!!project.featured && (
@@ -105,6 +122,9 @@ const Page = () => {
                 </div>
               </Card>
             </Link>
+          ))}
+          {status === 'pending' && Array.from({length:3}).map((_, i) => (
+            <SkeletonItem key={i}/>
           ))}
         </div>
       </section>

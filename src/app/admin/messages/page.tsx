@@ -1,10 +1,10 @@
 "use client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/useToast";
 import { Clock, Mail, Trash2 } from "lucide-react";
 import Pusher from "pusher-js";
 import React, { useEffect, useState } from "react";
-import { toast } from "@/hooks/useToast";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 type Message = {
   _id: string;
@@ -30,6 +30,35 @@ const MessageManage: React.FC = () => {
     } catch (error) {
       console.error("Ошибка при получении сообщений:", error);
       alert("Ошибка при получении сообщений!");
+    }
+  };
+
+  const handleReplyMessage = async (messageId: string, replyText?: string) => {
+    try {
+      const reply = replyText ?? window.prompt("Введите текст ответа:");
+      if (!reply) return;
+
+      const res = await fetch(`/api/messages/reply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messageId, replyText: reply }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(
+          err?.message || res.statusText || "Ошибка при отправке ответа"
+        );
+      }
+
+      toast({ title: "Ответ отправлен", variant: "default" });
+      await handleGetAllMessages();
+      if (selectedMessage && selectedMessage._id === messageId) {
+        setSelectedMessage({ ...selectedMessage, replied: true });
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке ответа:", error);
+      toast({ title: "Ошибка при отправке ответа", variant: "destructive" });
     }
   };
 
@@ -85,18 +114,15 @@ const MessageManage: React.FC = () => {
       await handleGetAllMessages();
     })();
 
-    // Подключение к Pusher
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
     });
 
     const channel = pusher.subscribe("messages");
-    channel.bind("newMessage", (newMessage: Message) => {
-      console.log("Получено новое сообщение через Pusher:", newMessage);
-      handleGetAllMessages(); // Обновляем список сообщений
+    channel.bind("newMessage", () => {
+      handleGetAllMessages();
     });
 
-    // Отключение Pusher при размонтировании компонента
     return () => {
       channel.unbind_all();
       channel.unsubscribe();
@@ -184,7 +210,12 @@ const MessageManage: React.FC = () => {
                 <Trash2 className="w-4" />
               </button>
               <hr className="text-gray-700" />
-              <Button className="p-8 rounded-2xl py-5 text-md">
+              <Button
+                onClick={() =>
+                  selectedMessage && handleReplyMessage(selectedMessage._id)
+                }
+                className="p-8 rounded-2xl py-5 text-md"
+              >
                 <Mail />
                 Ответить
               </Button>

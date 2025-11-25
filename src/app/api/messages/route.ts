@@ -48,13 +48,13 @@ export async function POST(request: Request) {
     // Устанавливаем начальный статус доставки как "pending"
     let deliveryStatus: "sent" | "failed" | "pending" = "pending";
 
-    // 3. Отправка email пользователю
+    // 3. Отправка email пользователю (автоответ — без текста пользователя)
     try {
       await transporter.sendMail({
         from: MY_EMAIL,
         to: data.email,
         subject: `Re: ${data.subject}`,
-        text: `Спасибо за ваше сообщение, ${data.name}! Мы свяжемся с вами в ближайшее время.\n\nВаше сообщение:\n${data.message}`,
+        text: `Спасибо за ваше сообщение, ${data.name}! Мы свяжемся с вами в ближайшее время.`,
       });
       report.emailSentToUser = true;
       deliveryStatus = "sent";

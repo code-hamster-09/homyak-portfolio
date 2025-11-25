@@ -1,4 +1,4 @@
-import { Provider } from "@/components/layout/provider";
+import { ModalProvider } from "@/components/layout/provider";
 import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -21,10 +21,10 @@ export default function RootLayout({
       <body
         className={`${geist.className} font-sans antialiased bg-bg-main text-text-primary`}
       >
-        <Provider>
+        <ModalProvider>
           {children}
           <Toaster />
-        </Provider>
+        </ModalProvider>
       </body>
     </html>
   );

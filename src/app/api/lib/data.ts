@@ -31,9 +31,14 @@ export const getProjects = async (): Promise<Project[]> => {
   return ProjectModel.find({});
 };
 
+export const getFeaturedProjects = async (limit = 3): Promise<Project[]> => {
+  await connectToDatabase();
+  return ProjectModel.find({ featured: true }).limit(limit);
+};
+
 export const getProjectById = async (id: string): Promise<Project | null> => {
   await connectToDatabase();
-  
+
   // Проверяем, является ли id валидным ObjectId
   if (!Types.ObjectId.isValid(id)) {
     console.warn(`Invalid Project ID format: ${id}`);

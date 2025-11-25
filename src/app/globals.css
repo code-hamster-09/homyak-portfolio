@@ -23,3 +23,7 @@
 .box-glow {
   box-shadow: 0 0 150px rgba(144, 85, 247, 0.8);
 }
+
+*{
+  scroll-behavior: smooth;
+}

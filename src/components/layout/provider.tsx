@@ -3,10 +3,12 @@
 import { useHotkey } from "@/hooks/useHotkey";
 import { createContext, useCallback, useContext, useState } from "react";
 import { AdminModal } from "./modal";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 const AdminContext = createContext({});
 
-export const Provider = ({ children }: { children: React.ReactNode }) => {
+export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // Функции для управления состоянием
@@ -24,8 +26,10 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AdminContext.Provider value={{ isModalOpen, openModal, closeModal }}>
+      <Provider store={store}>
       {children}
       <AdminModal isOpen={isModalOpen} onClose={closeModal} />
+      </Provider>
     </AdminContext.Provider>
   );
 };
