@@ -47,7 +47,7 @@ const Header = () => {
         <button
           onClick={() => setIsOpen((s) => !s)}
           className="md:hidden p-2 rounded-md hover:bg-white/5"
-          aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           <LucideMenu />
         </button>

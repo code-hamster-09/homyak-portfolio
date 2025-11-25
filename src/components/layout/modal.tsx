@@ -31,7 +31,7 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             onClose();
           })
           .catch((err) => {
-            alert("Неверный пароль. Попробуйте еще раз." + err);
+            alert("Invalid password. Try again." + err);
           });
         setInputValue("");
       }
@@ -53,7 +53,7 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         className="bg-accent-purple/40 backdrop-blur-xl p-4 rounded-3xl space-y-2 max-w-100 w-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-bold">Введите пароль</h2>
+        <h2 className="text-lg font-bold">Enter password</h2>
         <Input
           ref={inputRef}
           className="px-3 py-2 rounded-2xl border border-text-secondary/30 bg-text-secondary/20"

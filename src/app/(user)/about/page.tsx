@@ -8,49 +8,49 @@ const Page = () => {
       items: ["React", "Next.js", "TypeScript", "Redux Toolkit"],
     },
     {
-      category: "UI & Верстка",
+      category: "UI & Layout",
       items: [
         "Tailwind CSS",
-        "Адаптивная верстка",
-        "Компонентный подход",
-        "Работа с Figma",
+        "Responsive layouts",
+        "Component-based approach",
+        "Figma workflow",
       ],
     },
     {
-      category: "Инструменты",
-      items: ["Git / GitHub", "Vite", "Figma", "Vercel (деплой)"],
+      category: "Tools",
+      items: ["Git / GitHub", "Vite", "Figma", "Vercel (deploy)"],
     },
   ];
   const hobbies = [
     {
       icon: Code2,
-      title: "Программирование",
-      description: "Изучение новых технологий и создание side-проектов",
+      title: "Programming",
+      description: "Learning new technologies and building side projects",
     },
     {
       icon: Palette,
-      title: "Дизайн",
-      description: "UI/UX дизайн и создание визуальных концепций",
+      title: "Design",
+      description: "UI/UX design and visual concepts",
     },
     {
       icon: Gamepad2,
-      title: "Игры",
-      description: "Стратегии и инди-игры в свободное время",
+      title: "Games",
+      description: "Strategy and indie games in spare time",
     },
     {
       icon: Music,
-      title: "Музыка",
-      description: "Слушаю электронную музыку и ambient",
+      title: "Music",
+      description: "I listen to electronic and ambient music",
     },
     {
       icon: Camera,
-      title: "Фотография",
-      description: "Городская и пейзажная фотография",
+      title: "Photography",
+      description: "Urban and landscape photography",
     },
     {
       icon: Book,
-      title: "Чтение",
-      description: "Техническая литература и научная фантастика",
+      title: "Reading",
+      description: "Technical literature and sci-fi",
     },
   ];
   return (
@@ -58,18 +58,10 @@ const Page = () => {
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
         <div className="flex-1">
           <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-20">
-            Обо <span className="text-accent-purple text-glow">мне</span>
+            About <span className="text-accent-purple text-glow">me</span>
           </h1>
           <p className="text-text-secondary md:text-lg">
-            Привет! Я Frontend разработчик с страстью к созданию красивых и
-            функциональных веб-приложений. Мой путь в программировании начался
-            несколько лет назад, и с тех пор я постоянно изучаю новые
-            технологии. <br /> <br /> Я специализируюсь на современных
-            JavaScript фреймворках и люблю работать над проектами, которые
-            решают реальные проблемы пользователей. Мой подход сочетает
-            техническое мастерство с вниманием к деталям дизайна. <br /> <br />{" "}
-            Когда я не пишу код, я изучаю новые технологии, работаю над
-            open-source проектами или занимаюсь своими хобби.
+            Hi! I&apos;m a frontend developer passionate about building beautiful and functional web applications. I started programming a few years ago and continuously learn new technologies. <br /> <br /> I specialize in modern JavaScript frameworks and enjoy working on projects that solve real user problems. My approach combines technical craftsmanship with attention to design details. <br /> <br /> When I&apos;m not coding, I explore new tech, contribute to open-source, or pursue my hobbies.
           </p>
         </div>
         <div className="h-full aspect-square">
@@ -85,7 +77,7 @@ const Page = () => {
       </section>
       <section className="">
         <h2 className="text-4xl text-text-primary font-bold text-center">
-          Навыки
+          Skills
         </h2>
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {skills.map((skill) => (
@@ -108,10 +100,8 @@ const Page = () => {
         </div>
       </section>
       <section className="space-y-4 text-center">
-        <h2 className="text-4xl text-text-primary font-bold">Хобби</h2>
-        <p className="text-text-secondary text-lg mb-10">
-          Чем я занимаюсь в свободное время
-        </p>
+        <h2 className="text-4xl text-text-primary font-bold">Hobbies</h2>
+        <p className="text-text-secondary text-lg mb-10">What I do in my free time</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hobbies.map((hobby) => {
             const Icon = hobby.icon;

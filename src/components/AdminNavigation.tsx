@@ -3,8 +3,8 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 
 const nav = [
-  { name: "Проекты", href: "/admin/projects"},
-  { name: "Сообщения", href: "/admin/messages"}
+  { name: "Projects", href: "/admin/projects"},
+  { name: "Messages", href: "/admin/messages"}
 ]
 
 const AdminNavigation = () => {

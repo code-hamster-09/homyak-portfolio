@@ -62,11 +62,11 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
       if (data.linkDemo) formData.append("linkDemo", data.linkDemo);
       if (imageFile) formData.append("image", imageFile);
 
-      const token = localStorage.getItem("auth_token"); // Используем правильный ключ для токена
+      const token = localStorage.getItem("auth_token"); // use correct token key
       if (!token) {
         toast({
-          title: "Ошибка",
-          description: "Необходима авторизация",
+          title: "Error",
+          description: "Authorization required",
           variant: "destructive",
         }); // Перенаправляем на страницу логина
         return;
@@ -92,16 +92,15 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
       }
 
       toast({
-        title: "Успешно",
-        description: project ? "Проект обновлен" : "Проект создан",
+        title: "Success",
+        description: project ? "Project updated" : "Project created",
       });
       router.refresh();
       setIsEditing(false);
     } catch (error) {
       toast({
-        title: "Ошибка",
-        description:
-          error instanceof Error ? error.message : "Что-то пошло не так",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Something went wrong",
         variant: "destructive",
       });
     } finally {
@@ -135,14 +134,14 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
     <div className="w-full mx-auto p-4 md:p-8 border border-white/10 bg-text-secondary/10 rounded-3xl shadow-xl text-gray-100">
       <h2 className="text-3xl font-bold text-center mb-6">
         <span className="text-accent-purple text-glow">
-          {project ? "Редактировать" : "Создать"}{" "}
+          {project ? "Edit" : "Create"} {" "}
         </span>
-        {project ? "Проект" : "Новый Проект"}
+        {project ? "Project" : "New Project"}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="title" className="text-gray-300">
-            Название
+            Title
           </Label>
           <Input
             id="title"
@@ -156,7 +155,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
         <div className="space-y-2">
           <Label htmlFor="shortDescription" className="text-gray-300">
-            Краткое описание
+            Short description
           </Label>
           <Input
             id="shortDescription"
@@ -170,7 +169,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
         <div className="space-y-2">
           <Label htmlFor="fullDescription" className="text-gray-300">
-            Полное описание
+            Full description
           </Label>
           <Textarea
             id="fullDescription"
@@ -184,7 +183,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
         <div className="space-y-2">
           <Label htmlFor="technologies" className="text-gray-300">
-            Технологии
+            Technologies
           </Label>
           <Input
             id="technologies"
@@ -199,7 +198,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
         <div className="space-y-2">
           <Label htmlFor="image" className="text-gray-300">
-            Загрузить изображение
+            Upload image
           </Label>
           <Input
             id="image"
@@ -214,7 +213,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="linkDemo" className="text-gray-300">
-              Демо ссылка
+              Demo link
             </Label>
             <Input
               id="linkDemo"
@@ -228,7 +227,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
 
           <div className="space-y-2">
             <Label htmlFor="linkGithub" className="text-gray-300">
-              Ссылка на GitHub
+              GitHub link
             </Label>
             <Input
               id="linkGithub"
@@ -251,7 +250,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
             className="h-5 w-5 rounded border-white/10 bg-text-secondary/5 text-accent-purple focus:ring-accent-purple focus:ring-offset-gray-900"
           />
           <Label htmlFor="featured" className="text-text-secondary">
-            Отметить как избранный проект
+            Mark as featured
           </Label>
         </div>
 
@@ -261,13 +260,13 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
           type="submit"
         >
           {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-          {project ? "Сохранить изменения" : "Создать проект"}
+          {project ? "Save changes" : "Create project"}
         </Button>
         <Button
           className="bg-white/10 border border-white/20 hover:bg-white/20 p-6 rounded-2xl text-text-primary"
           onClick={() => setIsEditing(false)}
         >
-          Отмена
+          Cancel
         </Button>
       </form>
     </div>

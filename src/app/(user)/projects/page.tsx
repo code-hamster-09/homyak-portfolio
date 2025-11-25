@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import SkeletonItem from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -66,10 +67,10 @@ const Page = () => {
     <main className="p-4 sm:p-12 md:p-20 space-y-30">
       <section className="space-y-6 flex flex-col items-center">
         <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold">
-          Мои <span className="text-accent-purple text-glow">проекты</span>
+          My <span className="text-accent-purple text-glow">Projects</span>
         </h1>
         <p className="text-text-secondary text-md md:text-lg text-center">
-          Коллекция моих работ, от веб-приложений до AI проектов
+          A collection of my work, from web apps to AI projects
         </p>
         <div className="flex flex-row items-center gap-2 px-4 py-2 w-full max-w-md border border-white/10 rounded-2xl bg-text-secondary/5 backdrop-blur-sm">
           <Search className="opacity-50" />
@@ -78,7 +79,7 @@ const Page = () => {
             type="text"
             onChange={(e) => setSearchQuery(e.target.value)}
             className="text-md color-text-secondary"
-            placeholder="Поиск проектов..."
+            placeholder="Search projects..."
           />
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
@@ -90,11 +91,12 @@ const Page = () => {
                     Featured
                   </Badge>
                 )}
-                <div className="w-full h-[270px] overflow-hidden">
-                  <img
+                <div className="w-full h-[270px] overflow-hidden relative">
+                  <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-400"
                   />
                 </div>
                 <div className="p-6 flex-1 space-y-4">

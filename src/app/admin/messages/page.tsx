@@ -26,16 +26,16 @@ const MessageManage: React.FC = () => {
       const response = await fetch("/api/messages");
       const data = await response.json();
       setMessages(data.toReversed());
-      console.log("Все сообщения:", data);
+      console.log("All messages:", data);
     } catch (error) {
-      console.error("Ошибка при получении сообщений:", error);
-      alert("Ошибка при получении сообщений!");
+      console.error("Error fetching messages:", error);
+      alert("Failed to fetch messages!");
     }
   };
 
   const handleReplyMessage = async (messageId: string, replyText?: string) => {
     try {
-      const reply = replyText ?? window.prompt("Введите текст ответа:");
+      const reply = replyText ?? window.prompt("Enter reply text:");
       if (!reply) return;
 
       const res = await fetch(`/api/messages/reply`, {
@@ -46,19 +46,17 @@ const MessageManage: React.FC = () => {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(
-          err?.message || res.statusText || "Ошибка при отправке ответа"
-        );
+        throw new Error(err?.message || res.statusText || "Error sending reply");
       }
 
-      toast({ title: "Ответ отправлен", variant: "default" });
+      toast({ title: "Reply sent", variant: "default" });
       await handleGetAllMessages();
       if (selectedMessage && selectedMessage._id === messageId) {
         setSelectedMessage({ ...selectedMessage, replied: true });
       }
     } catch (error) {
-      console.error("Ошибка при отправке ответа:", error);
-      toast({ title: "Ошибка при отправке ответа", variant: "destructive" });
+      console.error("Error sending reply:", error);
+      toast({ title: "Error sending reply", variant: "destructive" });
     }
   };
 
@@ -75,30 +73,24 @@ const MessageManage: React.FC = () => {
       });
       handleGetAllMessages();
     } catch (error) {
-      console.error("Ошибка при обновлении статуса сообщения:", error);
+      console.error("Error updating message status:", error);
     }
   };
 
   const handleDeleteMessage = async (messageId: string) => {
-    if (!window.confirm("Вы уверены, что хотите удалить это сообщение?")) {
+    if (!window.confirm("Are you sure you want to delete this message?")) {
       return;
     }
     try {
       await fetch(`/api/messages/${messageId}`, {
         method: "DELETE",
       });
-      toast({
-        title: "Сообщение удалено",
-        variant: "default",
-      });
+      toast({ title: "Message deleted", variant: "default" });
       handleGetAllMessages();
       setSelectedMessage(null);
     } catch (error) {
-      console.error("Ошибка при удалении сообщения:", error);
-      toast({
-        title: "Ошибка при удалении сообщения!",
-        variant: "default",
-      });
+      console.error("Error deleting message:", error);
+      toast({ title: "Error deleting message!", variant: "default" });
     }
   };
 
@@ -136,10 +128,10 @@ const MessageManage: React.FC = () => {
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-1 space-y-3">
           <div className="flex items-center">
-            <h3 className="text-xl font-medium">Сообщения</h3>
+            <h3 className="text-xl font-medium">Messages</h3>
             {unreadCount > 0 && (
               <Badge className="ml-auto bg-accent-purple/20 text-accent-purple text-sm font-medium border/50 border-accent-purple px-2 py-0.5">
-                {unreadCount} новых
+                {unreadCount} new
               </Badge>
             )}
           </div>
@@ -196,7 +188,7 @@ const MessageManage: React.FC = () => {
             <div className="space-y-4 relative">
               <h2 className="text-2xl font-bold">{selectedMessage.subject}</h2>
               <div className="text-gray-400 text-md flex space-x-6">
-                <p>От: {selectedMessage.name}</p>
+                <p>From: {selectedMessage.name}</p>
                 <p>{selectedMessage.email}</p>
                 <p>{formattedSelectedTime}</p>
               </div>
@@ -217,7 +209,7 @@ const MessageManage: React.FC = () => {
                 className="p-8 rounded-2xl py-5 text-md"
               >
                 <Mail />
-                Ответить
+                Reply
               </Button>
             </div>
           ) : (

@@ -13,7 +13,7 @@ const Navigation = ({ onLinkClick }: NavigationProps) => {
           className="hover:text-accent-purple transition-all duration-200"
           href={"/"}
         >
-          Главная
+          Home
         </Link>
       </div>
       <div>
@@ -22,7 +22,7 @@ const Navigation = ({ onLinkClick }: NavigationProps) => {
           className="hover:text-accent-purple transition-all duration-200"
           href={"/projects"}
         >
-          Проекты
+          Projects
         </Link>
       </div>
       <div>
@@ -31,7 +31,7 @@ const Navigation = ({ onLinkClick }: NavigationProps) => {
           className="hover:text-accent-purple transition-all duration-200"
           href={"/about"}
         >
-          Обо мне
+          About
         </Link>
       </div>
       <div>
@@ -40,7 +40,7 @@ const Navigation = ({ onLinkClick }: NavigationProps) => {
           className="hover:text-accent-purple transition-all duration-200"
           href={"/contact"}
         >
-          Контакты
+          Contact
         </Link>
       </div>
     </nav>

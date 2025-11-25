@@ -17,8 +17,8 @@ type ContactType = {
 export default function Home() {
   const contacts: ContactType[] = [
     { type: "Email", value: ["sagimaks19@gmail.com"] },
-    { type: "Телефон", value: ["+7 (747) 290-52-75"] },
-    { type: "Социальные сети", value: ["Twitter", "LinkedIn", "GitHub"] },
+    { type: "Phone", value: ["+7 (747) 290-52-75"] },
+    { type: "Social", value: ["Twitter", "LinkedIn", "GitHub"] },
   ];
   const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
   useEffect(() => {
@@ -38,16 +38,13 @@ export default function Home() {
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
         <div className="flex flex-col lg:text-start lg:items-start flex-1 space-y-12 text-center items-center">
           <h1 className="text-text-primary text-4xl md:text-5xl lg:text-5xl font-bold">
-            Привет, я{" "}
-            <span className="text-accent-purple text-glow">Homyak</span>
+            Hi, I&apos;m <span className="text-accent-purple text-glow">Homyak</span>
           </h1>
           <p className="text-text-secondary text-md md:text-lg">
-            Создаю современные веб-приложения с фокусом на пользовательский опыт
-            и производительность. Специализируюсь на React, Next.js и
-            TypeScript.
+            Building modern web apps focused on UX and performance. Specializing in React, Next.js and TypeScript.
           </p>
           <Link href={"/projects"}>
-            <Button className="box-glow">Посмотреть проекты</Button>
+            <Button className="box-glow">View projects</Button>
           </Link>
         </div>
         <div className="w-full max-w-[400px] aspect-square">
@@ -65,14 +62,12 @@ export default function Home() {
         <div className="flex flex-col text-center md:flex-row md:text-start items-center justify-between mb-4 gap-4">
           <div>
             <h2 className="text-4xl text-text-primary font-bold">
-              Избранные проекты
+              Featured Projects
             </h2>
-            <p className="text-text-secondary text-lg">
-              Некоторые из моих последних работ
-            </p>
+            <p className="text-text-secondary text-lg">Some recent work</p>
           </div>
           <Link className="flex items-center font-medium transition-colors duration-300 hover:bg-white/10 px-4 py-2 rounded-2xl" href={"/projects"}>
-            Все проекты <ArrowRight className="w-5 ml-2"/>
+            All projects <ArrowRight className="w-5 ml-2"/>
           </Link>
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
@@ -84,11 +79,12 @@ export default function Home() {
                     Featured
                   </Badge>
                 )}
-                <div className="w-full h-[270px] overflow-hidden">
-                  <img
+                <div className="w-full h-[270px] overflow-hidden relative">
+                  <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-400"
                   />
                 </div>
                 <div className="p-6 flex-1 space-y-4">
@@ -120,12 +116,9 @@ export default function Home() {
         </div>
       </section>
       <section className="flex flex-col items-center gap-6">
-        <h2 className="text-4xl text-text-primary font-bold">
-          Готовы начать проект?
-        </h2>
+        <h2 className="text-4xl text-text-primary font-bold">Ready to start a project?</h2>
         <p className="text-lg text-text-secondary max-w-2xl text-center">
-          Если у вас есть интересный проект или вы хотите обсудить возможности
-          сотрудничества, я всегда открыт для общения.
+          Have an interesting project or want to collaborate? I&apos;m open to talk.
         </p>
         <div className="flex md:flex-row flex-col gap-6 justify-around p-10 border border-white/10 mt-8 rounded-4xl bg-text-secondary/5 backdrop-blur-sm text-center w-full">
           {contacts.map((contact) => (
@@ -149,7 +142,7 @@ export default function Home() {
           ))}
         </div>
         <Link href="/contact">
-          <Button className="mt-8">Связаться со мной</Button>
+          <Button className="mt-8">Contact me</Button>
         </Link>
       </section>
     </main>

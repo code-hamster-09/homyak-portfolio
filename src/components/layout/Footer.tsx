@@ -32,11 +32,11 @@ const Footer = () => {
             {"<HomyakVerse/>"}
           </Link>
           <p className="text-text-secondary font-medium">
-            Создаю будущее веб-приложений сегодня
+            Building the future of web apps today
           </p>
         </div>
         <div className="flex space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Навигация</span>
+          <span className="text-text-primary font-bold">Navigation</span>
           {links.navigation.map((link) => (
             <Link
               key={link.name}
@@ -48,7 +48,7 @@ const Footer = () => {
           ))}
         </div>
         <div className="flex space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Социальные сети</span>
+          <span className="text-text-primary font-bold">Social</span>
           {links.social.map((link) => (
             <Link
               key={link.name}
@@ -60,7 +60,7 @@ const Footer = () => {
           ))}
         </div>
         <div className="flex space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Контакты</span>
+          <span className="text-text-primary font-bold">Contact</span>
           {links.contacts.map((link) => {
             if (link.href !== "#") {
               return (
