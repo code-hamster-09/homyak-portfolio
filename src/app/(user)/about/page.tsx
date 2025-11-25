@@ -61,7 +61,14 @@ const Page = () => {
             About <span className="text-accent-purple text-glow">me</span>
           </h1>
           <p className="text-text-secondary md:text-lg">
-            Hi! I&apos;m a frontend developer passionate about building beautiful and functional web applications. I started programming a few years ago and continuously learn new technologies. <br /> <br /> I specialize in modern JavaScript frameworks and enjoy working on projects that solve real user problems. My approach combines technical craftsmanship with attention to design details. <br /> <br /> When I&apos;m not coding, I explore new tech, contribute to open-source, or pursue my hobbies.
+            Hi! I&apos;m a frontend developer passionate about building
+            beautiful and functional web applications. I started programming a
+            few years ago and continuously learn new technologies. <br /> <br />{" "}
+            I specialize in modern JavaScript frameworks and enjoy working on
+            projects that solve real user problems. My approach combines
+            technical craftsmanship with attention to design details. <br />{" "}
+            <br /> When I&apos;m not coding, I explore new tech, contribute to
+            open-source, or pursue my hobbies.
           </p>
         </div>
         <div className="h-full aspect-square">
@@ -101,7 +108,9 @@ const Page = () => {
       </section>
       <section className="space-y-4 text-center">
         <h2 className="text-4xl text-text-primary font-bold">Hobbies</h2>
-        <p className="text-text-secondary text-lg mb-10">What I do in my free time</p>
+        <p className="text-text-secondary text-lg mb-10">
+          What I do in my free time
+        </p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hobbies.map((hobby) => {
             const Icon = hobby.icon;

@@ -100,7 +100,8 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
     } catch (error) {
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Something went wrong",
+        description:
+          error instanceof Error ? error.message : "Something went wrong",
         variant: "destructive",
       });
     } finally {
@@ -134,7 +135,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
     <div className="w-full mx-auto p-4 md:p-8 border border-white/10 bg-text-secondary/10 rounded-3xl shadow-xl text-gray-100">
       <h2 className="text-3xl font-bold text-center mb-6">
         <span className="text-accent-purple text-glow">
-          {project ? "Edit" : "Create"} {" "}
+          {project ? "Edit" : "Create"}{" "}
         </span>
         {project ? "Project" : "New Project"}
       </h2>

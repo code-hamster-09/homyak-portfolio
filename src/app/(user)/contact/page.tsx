@@ -117,7 +117,7 @@ const Page = () => {
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
+              <Label htmlFor="subject">Subject</Label>
               <Input
                 id="subject"
                 name="subject"
@@ -165,9 +165,7 @@ const Page = () => {
         </Card>
         <aside className="space-y-6">
           <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative">
-            <h3 className="text-xl text-text-primary font-bold">
-              Socials
-            </h3>
+            <h3 className="text-xl text-text-primary font-bold">Socials</h3>
             <div className="space-y-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon;

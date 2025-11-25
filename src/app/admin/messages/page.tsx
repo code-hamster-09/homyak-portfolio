@@ -46,7 +46,9 @@ const MessageManage: React.FC = () => {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err?.message || res.statusText || "Error sending reply");
+        throw new Error(
+          err?.message || res.statusText || "Error sending reply"
+        );
       }
 
       toast({ title: "Reply sent", variant: "default" });
