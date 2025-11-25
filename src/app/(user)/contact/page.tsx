@@ -6,15 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/useToast";
-import { Github, Linkedin, Send, Twitter } from "lucide-react";
+import { Github, Linkedin, Send } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 const socialLinks = [
-  { name: "Twitter", href: "https://twitter.com/", icon: Twitter },
+  { name: "Telegram", href: "https://t.me/code_hamster9", icon: Send },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/mutalif-sagilan-982248347/",
+    href: "https://www.linkedin.com/in/mutalif-sagilan-982268347",
     icon: Linkedin,
   },
   { name: "GitHub", href: "https://github.com/code-hamster-09", icon: Github },
@@ -78,8 +78,9 @@ const Page = () => {
       <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
         Contact <span className="text-accent-purple text-glow">Me</span>
       </h1>
+      
       <p className="text-text-secondary text-md md:text-lg mb-8">
-        Have a question or an idea? I'm always open to new opportunities and
+        Have a question or an idea? I&apos;m always open to new opportunities and
         interesting projects.
       </p>
       <section className="grid grid-cols-1 lg:grid-cols-3 lg:space-x-6 space-y-6">
@@ -144,8 +145,8 @@ const Page = () => {
             </div>
 
             <p className="text-sm text-accent-yellow mt-1 flex items-center gap-1">
-              🚨*Make sure you've entered a valid email — if it's incorrect, you
-              won't receive a reply.
+              🚨*Make sure you&apos;ve entered a valid email — if it&apos;s incorrect, you
+              won&apos;t receive a reply. 
             </p>
             <Button
               type="submit"

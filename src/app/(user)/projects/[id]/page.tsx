@@ -47,12 +47,12 @@ const Page = () => {
       <h1 className="font-bold text-text-primary text-4xl my-4">{p.title}</h1>
       <p className="text-text-secondary mb-4">{p.shortDescription}</p>
 
-      <Link href={p.linkDemo || "#"}>
+      <Link target="_blank" href={p.linkDemo || "#"}>
         <Button className="px-6 py-5 rounded-xl text-sm mr-3">
           <LinkIcon /> Посмотреть проект
         </Button>
       </Link>
-      <Link href={p.linkGithub || "#"}>
+      <Link target="_blank" href={p.linkGithub || "#"}>
         <Button variant={"ghost"} className="mt-4 px-6 py-5 rounded-xl text-sm">
           <Github /> Посмотреть код
         </Button>

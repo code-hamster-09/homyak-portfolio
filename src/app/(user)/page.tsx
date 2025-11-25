@@ -4,22 +4,49 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import SkeletonItem from "@/components/ui/skeleton";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { ComponentType, SVGProps } from "react";
 import { useEffect, useState } from "react";
 import { Project, StatusType } from "./projects/page";
 
-type ContactType = {
-  type: string;
-  value: string[];
+type SocialLink = {
+  name: string;
+  href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
+
+type ContactType =
+  | {
+      type: string;
+      value: string[];
+    }
+  | {
+      type: "Social";
+      value: SocialLink[];
+    };
 
 export default function Home() {
   const contacts: ContactType[] = [
-    { type: "Email", value: ["sagimaks19@gmail.com"] },
+    { type: "Email", value: ["homyakdev9@gmail.com"] },
     { type: "Phone", value: ["+7 (747) 290-52-75"] },
-    { type: "Social", value: ["Twitter", "LinkedIn", "GitHub"] },
+    {
+      type: "Social",
+      value: [
+        { name: "Telegram", href: "https://t.me/code_hamster9", icon: Send },
+        {
+          name: "LinkedIn",
+          href: "https://www.linkedin.com/in/mutalif-sagilan-982268347",
+          icon: Linkedin,
+        },
+        {
+          name: "GitHub",
+          href: "https://github.com/code-hamster-09",
+          icon: Github,
+        },
+      ],
+    },
   ];
   const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
   const [status, setStatus] = useState<StatusType>("idle");
@@ -153,16 +180,40 @@ export default function Home() {
               className="flex flex-col md:space-y-2 font-medium"
             >
               <span className="text-text-secondary">{contact.type}</span>
-              <div className="space-x-6 text-accent-purple lg:text-xl">
-                {contact.value.map((val) => (
-                  <Link
-                    className="hover:opacity-80 transition-all duration-200"
-                    key={val}
-                    href="#"
-                  >
-                    {val}
-                  </Link>
-                ))}
+              <div className="space-x-2 text-accent-purple lg:text-xl">
+                {contact.type === "Social"
+                  ? // Narrow to SocialLink[] before mapping
+                    (contact.value as SocialLink[]).map((social) => {
+                      const Icon = social.icon;
+                      return (
+                        <Link
+                          className="hover:opacity-80 transition-all duration-200 inline-flex items-center relative group hover:bg-white/20 p-3 rounded-2xl"
+                          key={social.name}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Icon className="h-6 w-6" />
+                          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-sm text-white bg-gray-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                            {social.name}
+                          </span>
+                        </Link>
+                      );
+                    })
+                  : // Narrow to string[] for email/phone
+                    (contact.value as string[]).map((val) => {
+                      const isEmail = contact.type.toLowerCase() === "email";
+                      const href = isEmail ? `mailto:${val}` : `tel:${val}`;
+                      return (
+                        <Link
+                          key={val}
+                          href={href}
+                          className="hover:opacity-80 transition-all duration-200"
+                        >
+                          {val}
+                        </Link>
+                      );
+                    })}
               </div>
             </div>
           ))}

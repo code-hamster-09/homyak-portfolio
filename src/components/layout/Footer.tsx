@@ -8,15 +8,15 @@ const Footer = () => {
       { name: "About Me", href: "/about" },
     ],
     social: [
-      { name: "Twitter", href: "https://twitter.com/" },
+      { name: "Telegram", href: "https://t.me/code_hamster9" },
       {
         name: "LinkedIn",
-        href: "https://www.linkedin.com/in/mutalif-sagilan-982248347/",
+        href: "https://www.linkedin.com/in/mutalif-sagilan-982268347",
       },
       { name: "GitHub", href: "https://github.com/code-hamster-09" },
     ],
     contacts: [
-      { name: "sagimaks19@gmail.com", href: "#" },
+      { name: "homyakdev9@gmail.com", href: "#" },
       { name: "+7 (747) 290-52-75", href: "#" },
       { name: "Contact", href: "/contact" },
     ],
