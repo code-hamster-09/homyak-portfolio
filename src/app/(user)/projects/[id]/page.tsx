@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, LinkIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,14 +16,13 @@ const Page = () => {
     shortDescription: "",
     fullDescription: "",
     technologies: [],
-    image: "/file.svg",
+    image: "",
     featured: false,
     linkGithub: "",
     linkDemo: "",
   });
   const params = useParams();
   const id = params.id as string;
-  console.log(id);
   useEffect(() => {
     fetch(`/api/projects/${id}`, {
       method: "GET",
@@ -32,41 +32,41 @@ const Page = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setP(data);
       });
-  }, []);
+      window.scrollTo(0, 0);
+  }, [id]);
   return (
-    <div className="p-4 sm:p-12 md:px-20">
+    <div className="p-4 sm:py-6 md:px-20">
       <Link
         href={"/projects"}
         className="text-text-primary hover:bg-transparent bg-transparent p-4"
       >
-        ⬅ Назад
+        ⬅ Back
       </Link>
       <h1 className="font-bold text-text-primary text-4xl my-4">{p.title}</h1>
       <p className="text-text-secondary mb-4">{p.shortDescription}</p>
 
       <Link target="_blank" href={p.linkDemo || "#"}>
-        <Button className="px-6 py-5 rounded-xl text-sm mr-3">
-          <LinkIcon /> Посмотреть проект
+        <Button disabled={!p.linkDemo} className="px-6 py-5 rounded-xl text-sm mr-3">
+          <LinkIcon /> View project
         </Button>
       </Link>
       <Link target="_blank" href={p.linkGithub || "#"}>
-        <Button variant={"ghost"} className="mt-4 px-6 py-5 rounded-xl text-sm">
-          <Github /> Посмотреть код
+        <Button disabled={!p.linkGithub} variant={"ghost"} className="mt-4 px-6 py-5 rounded-xl text-sm">
+          <Github /> View code
         </Button>
       </Link>
-      <img
-        src={p.image}
-        alt={p.title}
-        className="w-full h-[600px] rounded-4xl object-cover mt-6"
-      />
+      {p.image && (
+        <div className="w-full h-[600px] rounded-4xl mt-6 overflow-hidden relative">
+          <Image src={p.image} alt={p.title} fill className="object-cover" />
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 space-y-6 md:space-x-6 mt-10">
         <div className="col-span-2 space-y-6">
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">
             <h2 className="font-bold text-text-primary text-xl mb-2">
-              О проекте
+              About project
             </h2>
             <p className="text-text-secondary text-sm wrap-break-word">
               {p.fullDescription}
@@ -74,7 +74,7 @@ const Page = () => {
           </div>
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">
             <h2 className="font-bold text-text-primary text-xl mb-2">
-              Технологии
+              Technologies
             </h2>
             <ul className="list-disc list-inside text-text-secondary text-sm space-y-1">
               {p.technologies.map((tech) => (
@@ -86,7 +86,7 @@ const Page = () => {
         <div className="col-span-1 space-y-6">
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">
             <h3 className="font-bold text-text-primary text-lg mb-2">
-              Технологии
+              Technologies
             </h3>
             <div className="">
               {p.technologies.map((tech) => (
@@ -100,21 +100,21 @@ const Page = () => {
             </div>
           </div>
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col ">
-            <h3 className="font-bold text-text-primary text-lg mb-2">Ссылки</h3>
+            <h3 className="font-bold text-text-primary text-lg mb-2">Links</h3>
             <div className="gap-2 text-text-secondary">
               <Link
                 className="flex gap-2 text-center items-center hover:text-accent-purple transition-all"
                 href={p.linkDemo || "#"}
               >
                 <LinkIcon className="w-4" />
-                Живай демонстрация
+                Live demonstration
               </Link>
               <Link
                 className="flex gap-2 text-center items-center hover:text-accent-purple transition-all"
                 href={p.linkGithub || "#"}
               >
                 <Github className="w-4" />
-                GitHub репозиторий
+                GitHub repository
               </Link>
             </div>
           </div>

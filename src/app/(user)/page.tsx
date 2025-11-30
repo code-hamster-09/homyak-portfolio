@@ -87,8 +87,8 @@ export default function Home() {
             Building modern web apps focused on UX and performance. Specializing
             in React, Next.js and TypeScript.
           </p>
-          <Link href={"/projects"}>
-            <Button className="box-glow">View projects</Button>
+          <Link href={"/about"}>
+            <Button className="box-glow">About me</Button>
           </Link>
         </div>
         <div className="w-full max-w-[400px] aspect-square">

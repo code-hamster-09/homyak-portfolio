@@ -4,9 +4,10 @@ import {
   updateMessage,
   validateMessage,
 } from "@/app/api/lib/messages-db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import Pusher from "pusher"; // Импорт Pusher
+import { authenticateToken } from "../lib/auth"; // Импорт authenticateToken
 
 const MY_EMAIL = process.env.MY_EMAIL;
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
@@ -110,7 +111,11 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const authResult = await authenticateToken(request);
+  if (authResult !== true) {
+    return authResult;
+  }
   try {
     const messages = await getMessages();
     return NextResponse.json(messages);

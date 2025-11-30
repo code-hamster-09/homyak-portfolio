@@ -1,10 +1,15 @@
 import { deleteMessage } from "@/app/api/lib/messages-db";
 import { NextResponse } from "next/server";
+import { authenticateToken } from "../../lib/auth";
 
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> } // Обновленный тип
 ) {
+  const authResult = await authenticateToken(request);
+  if (authResult !== true) {
+    return authResult;
+  }
   try {
     const { id } = await params; // Await params напрямую
 
@@ -25,9 +30,10 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: "Сообщение успешно удалено." });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: error.message || "Ошибка при удалении сообщения." },
+      { error: message || "Ошибка при удалении сообщения." },
       { status: 500 }
     );
   }

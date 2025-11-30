@@ -22,10 +22,11 @@ interface Project {
 }
 
 type CreateProjectProps = {
+  getProjectsList: () => void
   setIsEditing: (arg: boolean) => void;
   project?: Project;
 };
-const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
+const CreateProject = ({ getProjectsList, setIsEditing, project }: CreateProjectProps) => {
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -62,13 +63,13 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
       if (data.linkDemo) formData.append("linkDemo", data.linkDemo);
       if (imageFile) formData.append("image", imageFile);
 
-      const token = localStorage.getItem("auth_token"); // use correct token key
+      const token = localStorage.getItem("auth_token");
       if (!token) {
         toast({
           title: "Error",
           description: "Authorization required",
           variant: "destructive",
-        }); // Перенаправляем на страницу логина
+        });
         return;
       }
 
@@ -86,7 +87,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (response.status === 403) {
-          localStorage.removeItem("auth_token"); // Удаляем недействительный токен
+          localStorage.removeItem("auth_token"); 
         }
         throw new Error(errorData.message || `Ошибка: ${response.status}`);
       }
@@ -105,6 +106,7 @@ const CreateProject = ({ setIsEditing, project }: CreateProjectProps) => {
         variant: "destructive",
       });
     } finally {
+      getProjectsList()
       setIsLoading(false);
     }
   };

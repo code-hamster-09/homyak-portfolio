@@ -64,6 +64,7 @@ const Page = () => {
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
+      console.error(err)
       toast({
         title: "Ошибка!",
         description: "Не удалось отправить сообщение.",

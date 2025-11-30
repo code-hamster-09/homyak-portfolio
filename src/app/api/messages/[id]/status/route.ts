@@ -1,10 +1,15 @@
 import { updateMessage } from "@/app/api/lib/messages-db";
 import { NextResponse } from "next/server";
+import { authenticateToken } from "../../../lib/auth";
 
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> } // Обновленный тип
 ) {
+  const authResult = await authenticateToken(request);
+  if (authResult !== true) {
+    return authResult;
+  }
   try {
     const { id } = await params; // Await params напрямую
     // console.log("Получен ID для обновления статуса:", id); // Удалено логирование ID

@@ -1,6 +1,7 @@
 import { getMessageById, updateMessage } from "@/app/api/lib/messages-db";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { authenticateToken } from "../../lib/auth";
 
 const MY_EMAIL = process.env.MY_EMAIL;
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
@@ -14,6 +15,10 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function POST(request: Request) {
+  const authResult = await authenticateToken(request);
+  if (authResult !== true) {
+    return authResult;
+  }
   const report: any = {
     messageId: "",
     replySent: false,

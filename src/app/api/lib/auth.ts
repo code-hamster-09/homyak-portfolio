@@ -8,8 +8,8 @@ interface DecodedToken {
   // Добавьте другие поля, если они есть в токене
 }
 
-export const authenticateToken = async (req: NextRequest) => {
-  const authHeader = req.headers.get("authorization");
+export const authenticateToken = async (req: Request | NextRequest) => {
+  const authHeader = (req as Request).headers.get("authorization");
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) {

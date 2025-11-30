@@ -1,4 +1,5 @@
 "use client";
+import MessagesItem from "@/components/MessagesItem";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/useToast";
@@ -6,7 +7,7 @@ import { Clock, Mail, Trash2 } from "lucide-react";
 import Pusher from "pusher-js";
 import React, { useEffect, useState } from "react";
 
-type Message = {
+export type Message = {
   _id: string;
   name: string;
   email: string;
@@ -23,7 +24,18 @@ const MessageManage: React.FC = () => {
 
   const handleGetAllMessages = async () => {
     try {
-      const response = await fetch("/api/messages");
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        toast({
+          title: "Error",
+          description: "Authorization required",
+          variant: "destructive",
+        });
+        return;
+      }
+      const response = await fetch("/api/messages", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await response.json();
       setMessages(data.toReversed());
       console.log("All messages:", data);
@@ -37,10 +49,22 @@ const MessageManage: React.FC = () => {
     try {
       const reply = replyText ?? window.prompt("Enter reply text:");
       if (!reply) return;
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        toast({
+          title: "Error",
+          description: "Authorization required",
+          variant: "destructive",
+        });
+        return;
+      }
 
       const res = await fetch(`/api/messages/reply`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ messageId, replyText: reply }),
       });
 
@@ -59,6 +83,8 @@ const MessageManage: React.FC = () => {
     } catch (error) {
       console.error("Error sending reply:", error);
       toast({ title: "Error sending reply", variant: "destructive" });
+    } finally {
+      handleGetAllMessages();
     }
   };
 
@@ -68,10 +94,22 @@ const MessageManage: React.FC = () => {
   };
 
   const handleMarkAsRead = async (messageId: string) => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      toast({
+        title: "Error",
+        description: "Authorization required",
+        variant: "destructive",
+      });
+      return;
+    }
     try {
       await fetch(`/api/messages/${messageId}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       handleGetAllMessages();
     } catch (error) {
@@ -83,9 +121,19 @@ const MessageManage: React.FC = () => {
     if (!window.confirm("Are you sure you want to delete this message?")) {
       return;
     }
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      toast({
+        title: "Error",
+        description: "Authorization required",
+        variant: "destructive",
+      });
+      return;
+    }
     try {
       await fetch(`/api/messages/${messageId}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
       });
       toast({ title: "Message deleted", variant: "default" });
       handleGetAllMessages();
@@ -138,50 +186,8 @@ const MessageManage: React.FC = () => {
             )}
           </div>
           {messages.map((message) => {
-            console.log(message);
-            const formattedDate = new Date(
-              message.createdAt
-            ).toLocaleDateString();
-            const formattedTime = new Date(
-              message.createdAt
-            ).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
             return (
-              <div
-                key={message._id}
-                className="border border-white/10 p-3 rounded-3xl space-y-3 bg-white/5 cursor-pointer relative"
-                onClick={() => handleSelectMessage(message)}
-              >
-                <div
-                  className={`${
-                    message.status === "new"
-                      ? "text-accent-purple"
-                      : "text-gray-400"
-                  } flex items-center space-x-2`}
-                >
-                  <Mail className="w-5" />
-                  <h5 className="text-sm font-medium">{message.name}</h5>
-                </div>
-                <h3 className="text-lg font-medium">{message.subject}</h3>
-                <div className="flex items-center space-x-1 text-gray-400 m-0">
-                  <Clock className="w-3" />
-                  <span className="text-xs tracking-wider">
-                    {formattedDate}
-                  </span>
-                </div>
-                <span className="text-gray-400 text-sm absolute bottom-4 right-4 m-0">
-                  {formattedTime}
-                </span>
-                <div
-                  className={`${
-                    message.status === "new"
-                      ? " bg-accent-purple"
-                      : "bg-transparent"
-                  } w-2 h-2 rounded-full absolute top-4 right-4`}
-                ></div>
-              </div>
+              <MessagesItem key={message._id} message={message} handleSelectMessage={handleSelectMessage}/>
             );
           })}
         </div>
@@ -217,7 +223,7 @@ const MessageManage: React.FC = () => {
           ) : (
             <div className="flex flex-col items-center space-y-6 text-gray-400 p-4">
               <Mail className="h-12 w-12 text-muted-foreground mx-auto" />
-              <p>Выберите сообщение для просмотра</p>
+              <p>Select a message to view</p>
             </div>
           )}
         </div>

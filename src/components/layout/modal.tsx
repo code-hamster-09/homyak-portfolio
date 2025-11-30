@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
@@ -30,8 +31,13 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             router.push("/admin/projects");
             onClose();
           })
+          .then(() => {
+            setTimeout(() => {
+              localStorage.removeItem("auth_token");
+            }, 1000 * 60 * 60);
+          })
           .catch((err) => {
-            alert("Invalid password. Try again." + err);
+            alert("Неверный пароль. Попробуйте еще раз." + err);
           });
         setInputValue("");
       }
@@ -53,7 +59,7 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         className="bg-accent-purple/40 backdrop-blur-xl p-4 rounded-3xl space-y-2 max-w-100 w-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-bold">Enter password</h2>
+        <h2 className="text-lg font-bold">Введите пароль</h2>
         <Input
           ref={inputRef}
           className="px-3 py-2 rounded-2xl border border-text-secondary/30 bg-text-secondary/20"

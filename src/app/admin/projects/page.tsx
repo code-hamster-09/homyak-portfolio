@@ -4,6 +4,7 @@ import { Project } from "@/app/(user)/projects/page";
 import CreateProject from "@/components/CreateProject";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/useToast";
 import { Edit, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -13,13 +14,21 @@ const ProjectsManage = () => {
   const [selectedProject, setSelectedProject] = useState<Project | undefined>(
     undefined
   );
-  useEffect(() => {
+  const getProjectsList = () => {
     fetch("/api/projects")
       .then((res) => res.json())
       .then((p) => setProjects(p));
-  }, []);
+  }
   const deleteProject = (_id: string) => {
-    const token = localStorage.getItem("auth_token");
+    const token = localStorage.getItem("auth_token"); // use correct token key
+    if (!token) {
+      toast({
+        title: "Error",
+        description: "Authorization required",
+        variant: "destructive",
+      });
+      return;
+    }
     fetch(`/api/projects/${_id}`, {
       method: "DELETE",
       headers: {
@@ -27,8 +36,14 @@ const ProjectsManage = () => {
       },
     })
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => console.log(res))
+      .then(() => {
+        getProjectsList()
+      })
   };
+  useEffect(() => {
+    getProjectsList()
+  }, []);
   return (
     <div className="space-y-8">
       {!isEditing && (
@@ -39,14 +54,14 @@ const ProjectsManage = () => {
             setSelectedProject(undefined);
           }}
         >
-          Добавить проект +
+          Create project +
         </Button>
       )}
       {isEditing && (
-        <CreateProject setIsEditing={setIsEditing} project={selectedProject} />
+        <CreateProject getProjectsList={getProjectsList} setIsEditing={setIsEditing} project={selectedProject} />
       )}
       <div className="space-y-4">
-        {projects.length === 0 && (<p>Проекты не найдены.</p>)}
+        {projects.length === 0 && <p>Projects not found</p>}
         {projects.map((project) => {
           return (
             <div

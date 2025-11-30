@@ -1,34 +1,53 @@
 "use client";
 
+import { AdminModal } from "@/components/layout/modal";
 import { useHotkey } from "@/hooks/useHotkey";
-import { createContext, useCallback, useContext, useState } from "react";
-import { AdminModal } from "./modal";
-import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { useRouter } from "next/navigation";
+import { createContext, useCallback, useContext, useState } from "react";
+import { Provider } from "react-redux";
 
 const AdminContext = createContext({});
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const router = useRouter();
 
-  // Функции для управления состоянием
-  const openModal = useCallback(() => setIsModalOpen(true), []);
+  // state management function
+  const openModal = useCallback(() => {
+    fetch("/api/auth/check", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (!!res.authenticated) {
+          router.push("/admin/projects");
+          return;
+        } else {
+          setIsModalOpen(true);
+        }
+      });
+  }, [router]);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
-  // --- Использование: вот как вы вешаете действие на хоткей ---
+  // Open modal by (Ctrl + K + Alt)
+  useHotkey("control+k+alt", openModal);
+  useHotkey("control+л+alt", openModal);
+  useHotkey("meta+k+shift", openModal);
+  useHotkey("meta+л+shift", openModal);
+  useHotkey("meta+k+alt", openModal);
+  useHotkey("meta+л+alt", openModal);
 
-  // Открытие модалки по 'Control+k' (Ctrl + K)
-  useHotkey("Control+k+Alt", openModal);
-  useHotkey("Control+л+Alt", openModal);
-
-  // Закрытие модалки по 'Escape' (Esc)
+  // Closing modal by Escape (Esc)
   useHotkey("Escape", closeModal);
 
   return (
     <AdminContext.Provider value={{ isModalOpen, openModal, closeModal }}>
       <Provider store={store}>
-      {children}
-      <AdminModal isOpen={isModalOpen} onClose={closeModal} />
+        {children}
+        <AdminModal isOpen={isModalOpen} onClose={closeModal} />
       </Provider>
     </AdminContext.Provider>
   );
