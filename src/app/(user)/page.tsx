@@ -3,13 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import SkeletonItem from "@/components/ui/skeleton";
 import { ArrowRight, Github, Linkedin, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
 import { useEffect, useState } from "react";
 import { Project, StatusType } from "./projects/page";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 
 type SocialLink = {
   name: string;
@@ -162,7 +162,7 @@ export default function Home() {
               </Link>
             ))}
           {status === "pending" &&
-            Array.from({ length: 3 }).map((_, i) => <SkeletonItem key={i} />)}
+            Array.from({ length: 3 }).map((_, i) => <ProjectsSkeleton key={i} />)}
         </div>
       </section>
       <section className="flex flex-col items-center gap-6">

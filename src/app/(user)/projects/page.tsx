@@ -1,8 +1,8 @@
 "use client";
 
 import ProjectsItem from "@/components/ProjectsItem";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { Input } from "@/components/ui/input";
-import SkeletonItem from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -90,7 +90,9 @@ const Page = () => {
               <ProjectsItem key={project._id} project={project} />
             ))}
           {status === "pending" &&
-            Array.from({ length: 3 }).map((_, i) => <SkeletonItem key={i} />)}
+            Array.from({ length: 3 }).map((_, i) => (
+              <ProjectsSkeleton key={i} />
+            ))}
         </div>
       </section>
     </main>

@@ -1,9 +1,11 @@
 "use client";
+import { StatusType } from "@/app/(user)/projects/page";
 import MessagesItem from "@/components/MessagesItem";
+import MessagesSkeleton from "@/components/skeletons/MessagesSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/useToast";
-import { Clock, Mail, Trash2 } from "lucide-react";
+import { Mail, Trash2 } from "lucide-react";
 import Pusher from "pusher-js";
 import React, { useEffect, useState } from "react";
 
@@ -21,8 +23,10 @@ export type Message = {
 const MessageManage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [status, setStatus] = useState<StatusType>("idle");
 
   const handleGetAllMessages = async () => {
+    setStatus("pending");
     try {
       const token = localStorage.getItem("auth_token");
       if (!token) {
@@ -38,8 +42,9 @@ const MessageManage: React.FC = () => {
       });
       const data = await response.json();
       setMessages(data.toReversed());
-      console.log("All messages:", data);
+      setStatus("fulfilled");
     } catch (error) {
+      setStatus("rejected");
       console.error("Error fetching messages:", error);
       alert("Failed to fetch messages!");
     }
@@ -185,11 +190,23 @@ const MessageManage: React.FC = () => {
               </Badge>
             )}
           </div>
-          {messages.map((message) => {
-            return (
-              <MessagesItem key={message._id} message={message} handleSelectMessage={handleSelectMessage}/>
-            );
-          })}
+          {messages.length === 0 && status === "fulfilled" && (
+            <p>Messages not found</p>
+          )}
+          {status === "fulfilled" &&
+            messages.map((message) => {
+              return (
+                <MessagesItem
+                  key={message._id}
+                  message={message}
+                  handleSelectMessage={handleSelectMessage}
+                />
+              );
+            })}
+          {status === "pending" &&
+            Array.from({ length: 3 }).map((_, i) => (
+              <MessagesSkeleton key={i} />
+            ))}
         </div>
         <div className="col-span-2 border border-white/10 p-8 rounded-3xl bg-white/5 self-start">
           {selectedMessage ? (
