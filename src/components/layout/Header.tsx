@@ -35,7 +35,7 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <header className="w-full flex flex-col md:flex-row items-center justify-between px-6 sm:px-12 md:px-20 py-3 md:py-6 bg-bg-main/85 backdrop-blur-sm sticky top-0 left-0 z-50 text-text-primary border-b border-white/10">
+    <header className="w-full flex flex-col md:flex-row items-center justify-between px-6 sm:px-12 md:px-20 py-3 md:py-4 bg-bg-main/85 backdrop-blur-sm sticky top-0 left-0 z-50 text-text-primary border-b border-white/10">
       <div className="flex items-center justify-between md:w-auto w-full gap-4">
         <Link
           href={"/"}
@@ -54,7 +54,7 @@ const Header = () => {
       </div>
 
       {/* Navigation: visible on desktop, on mobile only when isOpen */}
-      <div className={`${isOpen ? "block" : "hidden"} md:block`}>
+      <div className={`${isOpen ? "block" : "hidden"} md:block w-full md:w-auto`}>
         <Navigation onLinkClick={() => setIsOpen(false)} />
       </div>
     </header>

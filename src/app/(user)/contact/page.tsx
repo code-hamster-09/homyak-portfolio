@@ -27,6 +27,12 @@ type FormData = {
   message: string;
 };
 
+const MAX_LENGTHS = {
+  name: 35,
+  subject: 100,
+  message: 3000, // Установим 3000 как максимальную длину
+};
+
 const Page = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
@@ -40,6 +46,18 @@ const Page = () => {
   };
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (
+      formData.name.length > MAX_LENGTHS.name ||
+      formData.subject.length > MAX_LENGTHS.subject ||
+      formData.message.length > MAX_LENGTHS.message
+    ) {
+      toast({
+        title: "Ошибка валидации",
+        description: "Превышен лимит символов в одном из полей.",
+        variant: "default",
+      });
+      return;
+    }
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/messages", {
@@ -64,7 +82,7 @@ const Page = () => {
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      console.error(err)
+      console.error(err);
       toast({
         title: "Ошибка!",
         description: "Не удалось отправить сообщение.",
@@ -79,19 +97,19 @@ const Page = () => {
       <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
         Contact <span className="text-accent-purple text-glow">Me</span>
       </h1>
-      
+
       <p className="text-text-secondary text-md md:text-lg mb-8">
-        Have a question or an idea? I&apos;m always open to new opportunities and
-        interesting projects.
+        Have a question or an idea? I&apos;m always open to new opportunities
+        and interesting projects.
       </p>
       <section className="grid grid-cols-1 lg:grid-cols-3 lg:space-x-6 space-y-6">
-        <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative col-span-2">
+        <Card className="p-4 sm:p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative col-span-2">
           <h2 className="text-xl text-text-primary font-bold">
             Send a message
           </h2>
           <form onSubmit={(e) => handleSendMessage(e)} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
+              <div className="space-y-2 relative">
                 <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
@@ -102,6 +120,9 @@ const Page = () => {
                   required
                   className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
                 />
+                <p className="absolute right-2 bottom-3 text-xs text-text-secondary">
+                  {formData.name.length}/{MAX_LENGTHS.name}
+                </p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -118,7 +139,7 @@ const Page = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="subject">Subject</Label>
               <Input
                 id="subject"
@@ -129,9 +150,12 @@ const Page = () => {
                 required
                 className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
               />
+              <p className="absolute right-2 bottom-3 text-xs text-text-secondary">
+                {formData.subject.length}/{MAX_LENGTHS.subject}
+              </p>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
@@ -143,11 +167,14 @@ const Page = () => {
                 rows={6}
                 className="glass border-white/10 resize-none px-4 py-2 rounded-2xl bg-text-secondary/5 text-md"
               />
+              <p className="absolute right-2 bottom-1 text-xs text-text-secondary">
+                {formData.message.length}/{MAX_LENGTHS.message}
+              </p>
             </div>
 
-            <p className="text-sm text-accent-yellow mt-1 flex items-center gap-1">
-              🚨*Make sure you&apos;ve entered a valid email — if it&apos;s incorrect, you
-              won&apos;t receive a reply. 
+            <p className="text-sm text-amber-500 mt-1 flex items-center gap-1">
+              🚨*Make sure you&apos;ve entered a valid email — if it&apos;s
+              incorrect, you won&apos;t receive a reply.
             </p>
             <Button
               type="submit"

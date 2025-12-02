@@ -95,7 +95,9 @@ const MessageManage: React.FC = () => {
 
   const handleSelectMessage = (message: Message) => {
     setSelectedMessage({ ...message, status: "read" });
-    handleMarkAsRead(message._id);
+    if (message.status === "new") {
+      handleMarkAsRead(message._id);
+    }
   };
 
   const handleMarkAsRead = async (messageId: string) => {
@@ -211,7 +213,9 @@ const MessageManage: React.FC = () => {
         <div className="col-span-2 border border-white/10 p-8 rounded-3xl bg-white/5 self-start">
           {selectedMessage ? (
             <div className="space-y-4 relative">
-              <h2 className="text-2xl font-bold">{selectedMessage.subject}</h2>
+              <h2 className="text-2xl font-bold wrap-break-word max-w-[90%]">
+                {selectedMessage.subject}
+              </h2>
               <div className="text-gray-400 text-md flex space-x-6">
                 <p>From: {selectedMessage.name}</p>
                 <p>{selectedMessage.email}</p>

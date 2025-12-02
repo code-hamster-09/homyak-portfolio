@@ -24,9 +24,9 @@ const MessagesItem = ({ message, handleSelectMessage }: MessagesItemType) => {
         } flex items-center space-x-2`}
       >
         <Mail className="w-5" />
-        <h5 className="text-sm font-medium">{message.name}</h5>
+        <h5 className="text-sm font-medium max-w-[70%] text-ellipsis line-clamp-1">{message.name}</h5>
       </div>
-      <h3 className="text-lg font-medium">{message.subject}</h3>
+      <h3 className="text-lg font-medium line-clamp-1 max-w-[80%] text-ellipsis">{message.subject}</h3>
       <div className="flex items-center space-x-1 text-gray-400 m-0">
         <Clock className="w-3" />
         <span className="text-xs tracking-wider">{formattedDate}</span>

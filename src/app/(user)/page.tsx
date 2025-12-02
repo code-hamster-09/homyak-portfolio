@@ -165,7 +165,7 @@ export default function Home() {
             Array.from({ length: 3 }).map((_, i) => <ProjectsSkeleton key={i} />)}
         </div>
       </section>
-      <section className="flex flex-col items-center gap-6">
+      <section className="flex flex-col items-center gap-6 text-center">
         <h2 className="text-4xl text-text-primary font-bold">
           Ready to start a project?
         </h2>
@@ -219,7 +219,7 @@ export default function Home() {
           ))}
         </div>
         <Link href="/contact">
-          <Button className="mt-8">Contact me</Button>
+          <Button className="sm:mt-8 mb-6 sm:mb-0">Contact me</Button>
         </Link>
       </section>
     </main>

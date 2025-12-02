@@ -23,8 +23,8 @@ const Footer = () => {
   };
   return (
     <footer className="px-4 sm:px-10 md:px-20 py-6 md:py-10 bg-bg-main/85 border-t border-white/10 space-y-10">
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-18">
-        <div className="flex space-y-4 flex-col">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-10 md:gap-18">
+        <div className="flex space-y-2 sm:space-y-4 flex-col">
           <Link
             href={"/"}
             className="text-accent-purple text-glow text-2xl font-bold"
@@ -35,7 +35,7 @@ const Footer = () => {
             Building the future of web apps today
           </p>
         </div>
-        <div className="flex space-y-4 flex-col">
+        <div className="flex space-y-2 sm:space-y-4 flex-col">
           <span className="text-text-primary font-bold">Navigation</span>
           {links.navigation.map((link) => (
             <Link
@@ -47,7 +47,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <div className="flex space-y-4 flex-col">
+        <div className="flex space-y-2 sm:space-y-4 flex-col">
           <span className="text-text-primary font-bold">Social</span>
           {links.social.map((link) => (
             <Link
@@ -59,7 +59,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <div className="flex space-y-4 flex-col">
+        <div className="flex space-y-2 sm:space-y-4 flex-col">
           <span className="text-text-primary font-bold">Contact</span>
           {links.contacts.map((link) => {
             if (link.href !== "#") {
