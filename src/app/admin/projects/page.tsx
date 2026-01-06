@@ -89,7 +89,7 @@ const ProjectsManage = () => {
               />
             );
           })}
-        {status === "pending" &&
+        {(status === "pending" || projects.length === 0) &&
           Array.from({ length: 3 }).map((_, i) => (
             <AdminProjectsSkeleton key={i} />
           ))}

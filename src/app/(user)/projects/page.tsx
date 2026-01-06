@@ -89,7 +89,7 @@ const Page = () => {
             filteredProjects.map((project) => (
               <ProjectsItem key={project._id} project={project} />
             ))}
-          {status === "pending" &&
+          {(status === "pending" || projects.length === 0) &&
             Array.from({ length: 3 }).map((_, i) => (
               <ProjectsSkeleton key={i} />
             ))}

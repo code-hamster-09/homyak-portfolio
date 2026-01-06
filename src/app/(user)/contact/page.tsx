@@ -30,7 +30,7 @@ type FormData = {
 const MAX_LENGTHS = {
   name: 35,
   subject: 100,
-  message: 3000, // Установим 3000 как максимальную длину
+  message: 3000, // 3000  максимальная длина
 };
 
 const Page = () => {
@@ -120,7 +120,7 @@ const Page = () => {
                   required
                   className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
                 />
-                <p className="absolute right-2 bottom-3 text-xs text-text-secondary">
+                <p className={`absolute right-2 bottom-3 text-xs ${formData.name.length > MAX_LENGTHS.name ? 'text-red-500' : 'text-text-secondary'}`}>
                   {formData.name.length}/{MAX_LENGTHS.name}
                 </p>
               </div>
@@ -150,7 +150,7 @@ const Page = () => {
                 required
                 className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
               />
-              <p className="absolute right-2 bottom-3 text-xs text-text-secondary">
+              <p className={`absolute right-2 bottom-3 text-xs ${formData.subject.length > MAX_LENGTHS.subject ? 'text-red-500' : 'text-text-secondary'}`}>
                 {formData.subject.length}/{MAX_LENGTHS.subject}
               </p>
             </div>
@@ -167,7 +167,7 @@ const Page = () => {
                 rows={6}
                 className="glass border-white/10 resize-none px-4 py-2 rounded-2xl bg-text-secondary/5 text-md"
               />
-              <p className="absolute right-2 bottom-1 text-xs text-text-secondary">
+              <p className={`absolute right-2 bottom-1 text-xs ${formData.message.length > MAX_LENGTHS.message ? 'text-red-500' : 'text-text-secondary'}`}>
                 {formData.message.length}/{MAX_LENGTHS.message}
               </p>
             </div>

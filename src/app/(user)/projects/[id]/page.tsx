@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Project } from "../page";
+import Skeleton from "@/components/ui/skeleton";
 
 const Page = () => {
   const [p, setP] = useState<Project>({
@@ -57,11 +58,11 @@ const Page = () => {
           <Github /> View code
         </Button>
       </Link>
-      {p.image && (
+      {p.image ? (
         <div className="w-full h-[600px] rounded-4xl mt-6 overflow-hidden relative">
-          <Image src={p.image} alt={p.title} fill className="object-cover" />
+          <Image src={p.image} alt={p.title} fill className="object-cover" loading="lazy"/>
         </div>
-      )}
+      ) : <Skeleton className="w-full h-[600px] rounded-4xl mt-6" />}
       <div className="grid grid-cols-1 md:grid-cols-3 space-y-6 md:space-x-6 mt-10">
         <div className="col-span-2 space-y-6">
           <div className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col">

@@ -95,6 +95,7 @@ const MessageManage: React.FC = () => {
 
   const handleSelectMessage = (message: Message) => {
     setSelectedMessage({ ...message, status: "read" });
+    setMessages((prevMessages) => [...prevMessages.filter(m => m._id !== message._id), { ...message, status: "read" }]);
     if (message.status === "new") {
       handleMarkAsRead(message._id);
     }
@@ -205,7 +206,7 @@ const MessageManage: React.FC = () => {
                 />
               );
             })}
-          {status === "pending" &&
+          {(status === "pending" || messages.length === 0) &&
             Array.from({ length: 3 }).map((_, i) => (
               <MessagesSkeleton key={i} />
             ))}
