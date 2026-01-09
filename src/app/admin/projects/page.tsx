@@ -2,7 +2,7 @@
 
 import { Project, StatusType } from "@/app/(user)/projects/page";
 import AdminProjectsItem from "@/components/AdminProjectsItem";
-import CreateProject, { ProjectModalAdmin } from "@/components/CreateProject";
+import CreateProject from "@/components/CreateProject";
 import AdminProjectsSkeleton from "@/components/skeletons/AdminProjectsSkeleton";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/useToast";
@@ -78,7 +78,7 @@ const ProjectsManage = () => {
           project={selectedProject}
         />
       )}
-        {/* <ProjectModalAdmin open={isEditing} onClose={() => setIsEditing(false)} project={selectedProject} /> */}
+      {/* <ProjectModalAdmin open={isEditing} onClose={() => setIsEditing(false)} project={selectedProject} /> */}
       <div className="space-y-4">
         {projects.length === 0 && status === "fulfilled" && (
           <p>Projects not found</p>
