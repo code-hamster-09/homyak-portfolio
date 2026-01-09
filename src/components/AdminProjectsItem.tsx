@@ -4,15 +4,13 @@ import { Badge } from "./ui/badge";
 
 type AdminProjectsItemProps = {
   project: Project;
-  setSelectedProject: (project: Project) => void;
-  setIsEditing: (isEditing: boolean) => void;
+  onEdit: (project: Project) => void;
   deleteProject: (_id: string) => void;
 };
 
 const AdminProjectsItem = ({
   project,
-  setSelectedProject,
-  setIsEditing,
+  onEdit,
   deleteProject,
 }: AdminProjectsItemProps) => {
   return (
@@ -38,17 +36,14 @@ const AdminProjectsItem = ({
       </div>
       <div className="absolute top-4 right-4 flex space-x-2">
         <button
-          onClick={() => {
-            setSelectedProject(project);
-            setIsEditing(true);
-          }}
-          className="px-2 py-1 hover:-translate-y-0.5 text-gray-300 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-300 mr-3"
+          onClick={() => onEdit(project)}
+          className="px-2 py-1 hover:-translate-y-0.5 text-gray-300 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-300 mr-3 active:scale-85"
         >
           <Edit className="w-4" />
         </button>
         <button
           onClick={() => deleteProject(project._id)}
-          className="text-red-500 px-2 py-1 hover:-translate-y-0.5 hover:text-gray-300 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-300 m-0"
+          className="text-red-500 px-2 py-1 hover:-translate-y-0.5 hover:text-gray-300 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-300 m-0  active:scale-85"
         >
           <Trash2 className="w-4" />
         </button>

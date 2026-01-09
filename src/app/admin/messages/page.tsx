@@ -95,7 +95,11 @@ const MessageManage: React.FC = () => {
 
   const handleSelectMessage = (message: Message) => {
     setSelectedMessage({ ...message, status: "read" });
-    setMessages((prevMessages) => [...prevMessages.filter(m => m._id !== message._id), { ...message, status: "read" }]);
+    setMessages((prevMessages) =>
+      prevMessages.map((m) =>
+        m._id !== message._id ? { ...m, status: "read" } : m
+      )
+    );
     if (message.status === "new") {
       handleMarkAsRead(message._id);
     }

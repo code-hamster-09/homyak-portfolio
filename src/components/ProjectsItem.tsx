@@ -11,7 +11,7 @@ type ProjectsItemType = {
 const ProjectsItem = ({ project }: ProjectsItemType) => {
   return (
     <Link key={project._id} href={"projects/" + project._id}>
-      <Card className="border group border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 relative p-0 gap-2 overflow-hidden">
+      <Card className="border group border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 relative p-0 gap-2 overflow-hidden h-full hover:-translate-y-1">
         {!!project.featured && (
           <Badge className="bg-accent-purple absolute top-6 right-6 z-10">
             Featured

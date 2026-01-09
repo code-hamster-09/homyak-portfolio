@@ -2,7 +2,7 @@
 
 import { Project, StatusType } from "@/app/(user)/projects/page";
 import AdminProjectsItem from "@/components/AdminProjectsItem";
-import CreateProject from "@/components/CreateProject";
+import CreateProject, { ProjectModalAdmin } from "@/components/CreateProject";
 import AdminProjectsSkeleton from "@/components/skeletons/AdminProjectsSkeleton";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/useToast";
@@ -48,6 +48,11 @@ const ProjectsManage = () => {
         getProjectsList();
       });
   };
+  const onEdit = (project: Project) => {
+    setIsEditing(true);
+    setSelectedProject(project);
+    window.scrollTo(0, 0);
+  };
   useEffect(() => {
     void (() => {
       getProjectsList();
@@ -73,6 +78,7 @@ const ProjectsManage = () => {
           project={selectedProject}
         />
       )}
+        {/* <ProjectModalAdmin open={isEditing} onClose={() => setIsEditing(false)} project={selectedProject} /> */}
       <div className="space-y-4">
         {projects.length === 0 && status === "fulfilled" && (
           <p>Projects not found</p>
@@ -83,8 +89,7 @@ const ProjectsManage = () => {
               <AdminProjectsItem
                 key={project._id}
                 project={project}
-                setIsEditing={setIsEditing}
-                setSelectedProject={setSelectedProject}
+                onEdit={onEdit}
                 deleteProject={deleteProject}
               />
             );
