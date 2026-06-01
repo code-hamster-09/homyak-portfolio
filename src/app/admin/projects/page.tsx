@@ -78,7 +78,6 @@ const ProjectsManage = () => {
           project={selectedProject}
         />
       )}
-      {/* <ProjectModalAdmin open={isEditing} onClose={() => setIsEditing(false)} project={selectedProject} /> */}
       <div className="space-y-4">
         {projects.length === 0 && status === "fulfilled" && (
           <p>Projects not found</p>

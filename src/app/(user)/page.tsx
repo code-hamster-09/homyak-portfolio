@@ -1,16 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import ProjectsItem from "@/components/ProjectsItem";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { ArrowRight, Github, Linkedin, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
 import { useEffect, useState } from "react";
 import { Project, StatusType } from "./projects/page";
-import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
-import ProjectsItem from "@/components/ProjectsItem";
 
 type SocialLink = {
   name: string;
@@ -91,7 +89,7 @@ export default function Home() {
           <Link href={"/about"}>
             <Button className="box-glow">About me</Button>
           </Link>
-        </div>
+        </div> 
         <div className="w-full max-w-[400px] aspect-square">
           <Image
             src="/homyakImage.jpg"
@@ -119,12 +117,14 @@ export default function Home() {
           </Link>
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {status === "fulfilled" &&
+          {(status === "fulfilled") && (featuredProjects.length > 0) &&
             featuredProjects.map((project) => (
               <ProjectsItem key={project._id} project={project} />
             ))}
           {(status === "pending" || featuredProjects.length === 0) &&
-            Array.from({ length: 3 }).map((_, i) => <ProjectsSkeleton key={i} />)}
+            Array.from({ length: 3 }).map((_, i) => (
+              <ProjectsSkeleton key={i} />
+            ))}
         </div>
       </section>
       <section className="flex flex-col items-center gap-6 text-center">

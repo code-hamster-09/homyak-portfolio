@@ -1,5 +1,6 @@
 "use client";
 
+import { getFeaturedProjects } from "@/app/api/lib/data";
 import ProjectsItem from "@/components/ProjectsItem";
 import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { Input } from "@/components/ui/input";
@@ -50,20 +51,24 @@ const Page = () => {
     })();
     window.scrollTo(0, 0);
   }, []);
-  const filteredProjects = projects
-    .filter(
-      (project) =>
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.shortDescription
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        project.technologies.some((tech) =>
-          tech.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    )
-    .sort((a, b) => {
-      return Number(b.featured) - Number(a.featured);
-    });
+
+  let filteredProjects;
+  if (projects.length > 0) {
+    filteredProjects = projects
+      .filter(
+        (project) =>
+          project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          project.shortDescription
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          project.technologies.some((tech) =>
+            tech.toLowerCase().includes(searchQuery.toLowerCase()),
+          ),
+      )
+      .sort((a, b) => {
+        return Number(b.featured) - Number(a.featured);
+      });
+  }
 
   return (
     <main className="p-4 sm:p-12 md:p-20 space-y-30">
@@ -85,7 +90,7 @@ const Page = () => {
           />
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {status === "fulfilled" &&
+          {(status === "fulfilled") && (filteredProjects != null && filteredProjects.length > 0)  &&
             filteredProjects.map((project) => (
               <ProjectsItem key={project._id} project={project} />
             ))}
