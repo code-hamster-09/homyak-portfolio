@@ -18,7 +18,7 @@ const AdminProjectsItem = ({
       <div className="flex space-x-4 items-center">
         <h3 className="text-xl font-medium">{project.title}</h3>
         {!!project.featured && (
-          <Badge className="bg-accent-purple">Featured</Badge>
+          <Badge className="bg-accent-purple">Избранный</Badge>
         )}
       </div>
       <p className="text-text-secondary">{project.shortDescription}</p>

@@ -1,6 +1,5 @@
 "use client";
 
-import { getFeaturedProjects } from "@/app/api/lib/data";
 import ProjectsItem from "@/components/ProjectsItem";
 import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
 import { Input } from "@/components/ui/input";
@@ -74,10 +73,10 @@ const Page = () => {
     <main className="p-4 sm:p-12 md:p-20 space-y-30">
       <section className="space-y-6 flex flex-col items-center">
         <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold">
-          My <span className="text-accent-purple text-glow">Projects</span>
+          Мои <span className="text-accent-purple text-glow">Проекты</span>
         </h1>
         <p className="text-text-secondary text-md md:text-lg text-center">
-          A collection of my work, from web apps to AI projects
+          Коллекция моих работ: от веб-приложений до интеграций с ИИ
         </p>
         <div className="flex flex-row items-center gap-2 px-4 py-2 w-full max-w-md border border-white/10 rounded-2xl bg-text-secondary/5 backdrop-blur-sm">
           <Search className="opacity-50" />
@@ -86,11 +85,13 @@ const Page = () => {
             type="text"
             onChange={(e) => setSearchQuery(e.target.value)}
             className="text-md color-text-secondary"
-            placeholder="Search projects..."
+            placeholder="Поиск проектов..."
           />
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {(status === "fulfilled") && (filteredProjects != null && filteredProjects.length > 0)  &&
+          {status === "fulfilled" &&
+            filteredProjects != null &&
+            filteredProjects.length > 0 &&
             filteredProjects.map((project) => (
               <ProjectsItem key={project._id} project={project} />
             ))}

@@ -3,9 +3,9 @@ import Link from "next/link";
 const Footer = () => {
   const links = {
     navigation: [
-      { name: "Home", href: "/" },
-      { name: "Portfolio", href: "/projects" },
-      { name: "About Me", href: "/about" },
+      { name: "Главная", href: "/" },
+      { name: "Портфолио", href: "/projects" },
+      { name: "Обо мне", href: "/about" },
     ],
     social: [
       { name: "Telegram", href: "https://t.me/code_hamster9" },
@@ -18,7 +18,7 @@ const Footer = () => {
     contacts: [
       { name: "homyakdev9@gmail.com", href: "#" },
       { name: "+7 (747) 290-52-75", href: "#" },
-      { name: "Contact", href: "/contact" },
+      { name: "Обратная связь", href: "/contact" },
     ],
   };
   return (
@@ -32,11 +32,11 @@ const Footer = () => {
             {"<HomyakVerse/>"}
           </Link>
           <p className="text-text-secondary font-medium">
-            Building the future of web apps today
+            Создаю будущее веб-приложений уже сегодня
           </p>
         </div>
         <div className="flex space-y-2 sm:space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Navigation</span>
+          <span className="text-text-primary font-bold">Навигация</span>
           {links.navigation.map((link) => (
             <Link
               key={link.name}
@@ -48,7 +48,7 @@ const Footer = () => {
           ))}
         </div>
         <div className="flex space-y-2 sm:space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Social</span>
+          <span className="text-text-primary font-bold">Соцсети</span>
           {links.social.map((link) => (
             <Link
               key={link.name}
@@ -60,7 +60,7 @@ const Footer = () => {
           ))}
         </div>
         <div className="flex space-y-2 sm:space-y-4 flex-col">
-          <span className="text-text-primary font-bold">Contact</span>
+          <span className="text-text-primary font-bold">Контакты</span>
           {links.contacts.map((link) => {
             if (link.href !== "#") {
               return (
@@ -86,7 +86,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center text-text-secondary border-t border-white/10 bg-bg-main/85 pt-4">
-        &copy; {new Date().getFullYear()} Homyak. All rights reserved.
+        &copy; {new Date().getFullYear()} Homyak. Все права защищены.
       </div>
     </footer>
   );

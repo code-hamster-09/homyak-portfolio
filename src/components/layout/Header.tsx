@@ -47,14 +47,16 @@ const Header = () => {
         <button
           onClick={() => setIsOpen((s) => !s)}
           className="md:hidden p-2 rounded-md hover:bg-white/5"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
         >
           <LucideMenu />
         </button>
       </div>
 
       {/* Navigation: visible on desktop, on mobile only when isOpen */}
-      <div className={`${isOpen ? "block" : "hidden"} md:block w-full md:w-auto`}>
+      <div
+        className={`${isOpen ? "block" : "hidden"} md:block w-full md:w-auto`}
+      >
         <Navigation onLinkClick={() => setIsOpen(false)} />
       </div>
     </header>

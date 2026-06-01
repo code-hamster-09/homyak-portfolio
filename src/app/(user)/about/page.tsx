@@ -15,74 +15,95 @@ import Image from "next/image";
 const learningMethod = [
   {
     icon: Brain,
-    title: "Conceptual Hacking",
-    description: "Focus on core concepts instead of memorizing documentation",
+    title: "Концептуальный хакинг",
+    description:
+      "Фокус на архитектуре систем, паттернах проектирования и внутренней логике работы инструментов вместо зазубривания документации.",
   },
   {
     icon: Zap,
-    title: "Immediate Practice",
-    description: "From theory to code in hours, not weeks",
+    title: "Быстрый вывод в прод",
+    description:
+      "Минимальный шаг от разбора сложных инженерных концепций до написания работающего, оптимизированного кода на реальных задачах.",
   },
   {
     icon: GitBranch,
-    title: "AI as a Tool",
-    description: "Smart use of AI for accelerated system adoption",
+    title: "AI как стратегический инструмент",
+    description:
+      "Глубокое использование нейросетей для код-ревью, рефакторинга, генерации архитектурных планов и ускорения рутинной разработки.",
   },
   {
     icon: Target,
-    title: "Iterative Development",
-    description: "Analysis, understanding the pattern, practical application",
+    title: "Итеративная архитектура",
+    description:
+      "Постоянный поиск узких мест (bottlenecks), оптимизация стейт-менеджмента и доведение костыльных решений до уровня Best Practices.",
   },
 ];
+
 const skills = [
   {
-    category: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Redux Toolkit"],
-  },
-  {
-    category: "UI & Layout",
+    category: "Frontend Core",
     items: [
-      "Tailwind CSS",
-      "Responsive layouts",
-      "Component-based approach",
-      "Figma workflow",
+      "JavaScript (ES6+) / TypeScript",
+      "React / Next.js (App & Pages Router)",
+      "Redux / Redux Toolkit / Context API",
+      "Tailwind CSS / Shadcn UI / CSS Modules / SCSS",
     ],
   },
   {
-    category: "Tools",
-    items: ["Git / GitHub", "Vite", "Figma", "Vercel (deploy)"],
+    category: "Backend & Databases",
+    items: [
+      "PHP / Laravel Framework",
+      "SQL / PostgreSQL",
+      "Проектирование REST API",
+      "Построение CRUD и миграции данных",
+    ],
+  },
+  {
+    category: "Tools & DevOps",
+    items: [
+      "Git / GitHub / GitLab",
+      "Docker (контейнеризация)",
+      "Vite / npm / Node.js runtime",
+      "Vercel / Хостинг проектов",
+    ],
   },
 ];
+
 const hobbies = [
   {
     icon: Code2,
-    title: "Programming",
-    description: "Learning new technologies and building side projects",
+    title: "Программирование и R&D",
+    description:
+      "Изучение новых технологий (сейчас активно копаю в NestJS) и создание собственных пет-проектов.",
   },
   {
     icon: Palette,
-    title: "Design",
-    description: "UI/UX design and visual concepts",
+    title: "UI/UX Архитектура",
+    description:
+      "Проектирование интерфейсов, дизайн-систем и логики взаимодействия с пользователем в Figma.",
   },
   {
     icon: Gamepad2,
-    title: "Games",
-    description: "Strategy and indie games in spare time",
+    title: "Стратегии и инди-игры",
+    description:
+      "Анализ игровых механик, баланса и логических паттернов в сложных тактических играх.",
   },
   {
     icon: Music,
-    title: "Music",
-    description: "I listen to electronic and ambient music",
+    title: "Электронная музыка",
+    description:
+      "Слушаю Ambient и IDM для глубокого погружения в код во время ночных сессий.",
   },
   {
     icon: Camera,
-    title: "Photography",
-    description: "Urban and landscape photography",
+    title: "Фотография",
+    description: "Урбанистика, геометрия зданий и съемка городских пейзажей.",
   },
   {
     icon: Book,
-    title: "Reading",
-    description: "Technical literature and sci-fi",
+    title: "Чтение",
+    description:
+      "Техническая литература, архитектурные гайды и научная фантастика.",
   },
 ];
 
@@ -92,24 +113,26 @@ const Page = () => {
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
         <div className="flex-1">
           <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-20">
-            About <span className="text-accent-purple text-glow">me</span>
+            Обо <span className="text-accent-purple text-glow">мне</span>
           </h1>
           <p className="text-text-secondary md:text-lg">
-            I am a 16-year-old Front-End Developer from Almaty, specializing in
-            React and Next.js. I refuse to waste time passively reading
-            voluminous documentation. My approach is{" "}
-            <strong className="text-text-primary">Conceptual Hacking</strong>:
-            gaining a small but deep theoretical foundation, immediately
-            grasping the system&apos;s architecture, and then jumping straight
-            into practice, using AI as a strategic boost to achieve rapid
-            mastery of frameworks.
+            Я Full-Stack / Front-End разработчик из Алматы. Специализируюсь на
+            создании высокопроизводительных веб-приложений на связке React,
+            Next.js и Laravel. Моя главная фишка —{" "}
+            <strong className="text-text-primary">
+              высокая скорость адаптации и упор на архитектуру
+            </strong>
+            . Вместо пассивного чтения мануалов я разбираюсь, как технологии
+            работают «под капотом», быстро осваиваю сложные инструменты и сразу
+            внедряю их в практику.
             <br />
             <br />
-            My journey began in 2022, where a subpar experience with a JS mentor
-            became my greatest incentive for self-study. This unsuccessful
-            encounter compelled me to develop my own highly effective learning
-            system, which allows me to master complex, advanced frameworks not
-            over months, but in a matter of days.
+            Мой путь в веб-разработке начался в 2022 году. Самообучение
+            позволило мне выработать собственную систему разбора сложных систем,
+            благодаря которой я могу осваивать продвинутые фреймворки за
+            считанные дни. Я рассматриваю современные AI-инструменты не как
+            костыль для синтаксиса, а как мощный ускоритель процессов — для
+            глубокого рефакторинга кода и оптимизации логики.
           </p>
         </div>
         <div className="h-full aspect-square">
@@ -126,27 +149,27 @@ const Page = () => {
       <section className="max-w-5xl mx-auto">
         <div className="p-6 md:p-10 lg:p-12 border border-white/10 rounded-3xl md:rounded-4xl bg-white/5 backdrop-blur-sm">
           <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            🎯 Current Challange: Solving Complex Problems (React Native) Using
-            the AI Strategist Method
+            🎯 Текущий челлендж: Полноценный Full-Stack и высоконагруженная
+            логика
           </h2>
+
           <div className="space-y-4 text-gray-300/80 leading-relaxed text-lg">
             <p>
-              <strong className="text-text-primary">Idea:</strong> Create a
-              reliable, autonomous tool for survival in conditions of complete
-              absence of the Internet — an offline AI assistant on React Native.
+              <strong className="text-text-primary">Вектор развития:</strong> Я
+              ищу нетривиальные, комплексные задачи, где клиентская и серверная
+              части приложения должны работать как единый, отказоустойчивый
+              механизм.
             </p>
             <p>
-              <strong className="text-text-primary">My role:</strong> I
-              didn&apos;t spend months learning mobile development. I took on
-              the <strong className="text-accent-purple">AI-Strategist</strong>{" "}
-              role: I formulate high-level technical tasks, then manage the AI
-              that performs the coding, constantly monitoring, adapting, and
-              optimizing the generated React Native code.
+              <strong className="text-text-primary">Мой подход:</strong> Наличие
+              коммерческого опыта в бэкенде (Laravel/PostgreSQL) в сочетании с
+              современным фронтендом (React/Next.js) позволяет мне полностью
+              закрывать цикл разработки фичи — от структуры БД до интерфейса.
             </p>
             <p>
-              <strong className="text-text-primary">Goal:</strong> Don&apos;t
-              write every line, but provide a working, reliable, and autonomous
-              solution for the most complex, non-trivial task.
+              <strong className="text-text-primary">Цель:</strong> Стирать
+              границы между сложным UI и эффективным бэком, обеспечивая
+              максимальную скорость работы интерфейсов и безопасность данных.
             </p>
           </div>
         </div>
@@ -154,11 +177,11 @@ const Page = () => {
       <section className="">
         <div className="mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            🚀 Method: Iterative Learning through Practice
+            🚀 Метод: Итеративное обучение через практику
           </h2>
           <p className="text-text-secondary text-center mb-12 max-w-2xl mx-auto">
-            My approach is based on understanding how technology works “under
-            the hood”, then applying it in practice using real-world examples.
+            В основе моей работы лежит понимание внутренних процессов
+            технологии, которое закрепляется решением реальных бизнес-задач.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -186,7 +209,7 @@ const Page = () => {
       </section>
       <section className="">
         <h2 className="text-4xl text-text-primary font-bold text-center">
-          Skills
+          Навыки
         </h2>
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {skills.map((skill) => (
@@ -209,9 +232,9 @@ const Page = () => {
         </div>
       </section>
       <section className="space-y-4 text-center">
-        <h2 className="text-4xl text-text-primary font-bold">Hobbies</h2>
+        <h2 className="text-4xl text-text-primary font-bold">Увлечения</h2>
         <p className="text-text-secondary text-lg mb-10">
-          What I do in my free time
+          Чем я занимаюсь в свободное от коммерческого кода время
         </p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hobbies.map((hobby) => {

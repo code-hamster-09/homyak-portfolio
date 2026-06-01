@@ -72,8 +72,8 @@ const CreateProject = ({
       const token = localStorage.getItem("auth_token");
       if (!token) {
         toast({
-          title: "Error",
-          description: "Authorization required",
+          title: "Ошибка",
+          description: "Требуется авторизация",
           variant: "destructive",
         });
         return;
@@ -99,16 +99,16 @@ const CreateProject = ({
       }
 
       toast({
-        title: "Success",
-        description: project ? "Project updated" : "Project created",
+        title: "Успешно",
+        description: project ? "Проект обновлен" : "Проект создан",
       });
       router.refresh();
       setIsEditing(false);
     } catch (error) {
       toast({
-        title: "Error",
+        title: "Ошибка",
         description:
-          error instanceof Error ? error.message : "Something went wrong",
+          error instanceof Error ? error.message : "Что-то пошло не так",
         variant: "destructive",
       });
     } finally {
@@ -144,9 +144,9 @@ const CreateProject = ({
     <div className="p-4 md:p-8 border border-white/10 bg-text-secondary/10 rounded-3xl shadow-xl text-gray-100 z-1000">
       <h2 className="text-3xl font-bold text-center mb-6">
         <span className="text-accent-purple text-glow">
-          {project ? "Edit" : "Create"}{" "}
+          {project ? "Редактировать" : "Создать"}{" "}
         </span>
-        {project ? "Project" : "New Project"}
+        {project ? "проект" : "новый проект"}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex space-x-6">
@@ -162,14 +162,14 @@ const CreateProject = ({
             ) : imageFile ? (
               <Image
                 src={URL.createObjectURL(imageFile)}
-                alt="Preview"
+                alt="Предпросмотр"
                 fill
                 loading="lazy"
                 className="object-fill"
               />
             ) : (
               <div className="w-full h-full bg-gray-400/20 text-gray-400 flex items-center justify-center">
-                Upload Image
+                Загрузить изображение
               </div>
             )}
 
@@ -206,7 +206,7 @@ const CreateProject = ({
                 }
               }}
             >
-              {imageFile || project?.image ? "Change " : "Upload"} Image
+              {imageFile || project?.image ? "Изменить " : "Загрузить"} изображение
               <Input
                 id="image"
                 name="image"
@@ -220,14 +220,14 @@ const CreateProject = ({
           <div className="space-y-6 w-full">
             <div className="space-y-2">
               <Label htmlFor="title" className="text-gray-300">
-                Title
+                Название
               </Label>
               <Input
                 id="title"
                 name="title"
                 value={data.title}
                 onChange={handleInputChange}
-                placeholder="Name your masterpiece"
+                placeholder="Назовите свой шедевр"
                 required
                 className="border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple"
               />
@@ -235,14 +235,14 @@ const CreateProject = ({
 
             <div className="space-y-2">
               <Label htmlFor="shortDescription" className="text-gray-300">
-                Short description
+                Краткое описание
               </Label>
               <Input
                 id="shortDescription"
                 name="shortDescription"
                 value={data.shortDescription}
                 onChange={handleInputChange}
-                placeholder="Describe your vision in one powerful sentence"
+                placeholder="Опишите свою идею одним сильным предложением"
                 required
                 className="border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple"
               />
@@ -252,14 +252,14 @@ const CreateProject = ({
 
         <div className="space-y-2">
           <Label htmlFor="technologies" className="text-gray-300">
-            Technologies
+            Технологии
           </Label>
           <Input
             id="technologies"
             name="technologies"
             value={data.technologies}
             onChange={handleInputChange}
-            placeholder="React, Node.js, MongoDB (comma separated)"
+            placeholder="React, Node.js, MongoDB (через запятую)"
             required
             className="border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple"
           />
@@ -267,7 +267,7 @@ const CreateProject = ({
 
         {/* <div className="space-y-2">
           <Label htmlFor="image" className="text-gray-300">
-            Upload image
+            Загрузить изображение
           </Label>
           <Input
             id="image"
@@ -286,7 +286,7 @@ const CreateProject = ({
               name="linkDemo"
               value={data.linkDemo}
               onChange={handleInputChange}
-              placeholder="Demo link"
+              placeholder="Ссылка на демо"
               type="url"
               className="border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple"
             />
@@ -298,7 +298,7 @@ const CreateProject = ({
               name="linkGithub"
               value={data.linkGithub}
               onChange={handleInputChange}
-              placeholder="GitHub link"
+              placeholder="Ссылка на GitHub"
               type="url"
               className="border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple"
             />
@@ -307,14 +307,14 @@ const CreateProject = ({
 
         <div className="space-y-2">
           <Label htmlFor="fullDescription" className="text-gray-300">
-            Full description
+            Полное описание
           </Label>
           <Textarea
             id="fullDescription"
             name="fullDescription"
             value={data.fullDescription}
             onChange={handleTextareaChange}
-            placeholder="Describe your project in detail"
+            placeholder="Подробно опишите ваш проект"
             required
             className="min-h-[120px] border border-white/10 text-text-secondary bg-text-secondary/5 rounded-2xl px-4 py-2 placeholder:text-text-secondary/70 focus:border-accent-purple focus:ring-accent-purple resize-none"
           />
@@ -327,13 +327,13 @@ const CreateProject = ({
             type="submit"
           >
             {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-            {project ? "Save changes" : "Create project"}
+            {project ? "Сохранить изменения" : "Создать проект"}
           </Button>
           <Button
             className="bg-white/10 border border-white/20 hover:bg-white/20 p-6 rounded-2xl text-text-primary"
             onClick={() => setIsEditing(false)}
           >
-            Cancel
+            Отмена
           </Button>
         </div>
       </form>

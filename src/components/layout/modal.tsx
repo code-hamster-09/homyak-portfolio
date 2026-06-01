@@ -1,6 +1,5 @@
 "use client";
 
-import { toast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
@@ -32,9 +31,12 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             onClose();
           })
           .then(() => {
-            setTimeout(() => {
-              localStorage.removeItem("auth_token");
-            }, 1000 * 60 * 60);
+            setTimeout(
+              () => {
+                localStorage.removeItem("auth_token");
+              },
+              1000 * 60 * 60,
+            );
           })
           .catch((err) => {
             alert("Неверный пароль. Попробуйте еще раз." + err);
@@ -48,7 +50,7 @@ export const AdminModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     };
   }, [isOpen, onClose, inputValue, router]);
 
-  if (!isOpen) return;
+  if (!isOpen) return null;
 
   return (
     <div

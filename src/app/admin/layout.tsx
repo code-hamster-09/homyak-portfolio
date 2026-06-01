@@ -13,13 +13,14 @@ export default function AdminLayout({
 }>) {
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const router = useRouter();
+
   useEffect(() => {
     try {
       const token = localStorage.getItem("auth_token");
       if (!token) {
         toast({
-          title: "Error",
-          description: "Authorization required",
+          title: "Ошибка",
+          description: "Требуется авторизация",
           variant: "destructive",
         });
         router.push("/");
@@ -34,8 +35,8 @@ export default function AdminLayout({
           if (!res.authenticated) {
             router.push("/");
             toast({
-              title: "Error",
-              description: "Authorization required",
+              title: "Ошибка",
+              description: "Требуется авторизация",
               variant: "destructive",
             });
             return;
@@ -46,7 +47,8 @@ export default function AdminLayout({
       console.error(error);
     }
   }, [router]);
-  if (isAuth)
+
+  if (isAuth) {
     return (
       <div className="px-20 py-8 space-y-4">
         <div>
@@ -54,17 +56,20 @@ export default function AdminLayout({
             href={"/"}
             className="text-text-primary hover:bg-transparent bg-transparent p-4"
           >
-            ⬅ Home
+            ⬅ На главную
           </Link>
         </div>
         <h1 className="text-text-primary text-4xl font-bold">
-          Admin <span className="text-accent-purple text-glow">page</span>
+          Панель <span className="text-accent-purple text-glow">администратора</span>
         </h1>
         <p className="text-text-secondary max-w-lg">
-          Content management and portfolio settings
+          Управление контентом и конфигурация портфолио
         </p>
         <AdminNavigation />
         {children}
       </div>
     );
+  }
+
+  return null; 
 }

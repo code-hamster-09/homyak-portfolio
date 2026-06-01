@@ -75,7 +75,7 @@ const Page = () => {
         return;
       }
       toast({
-        title: "Оправлено!",
+        title: "Отправлено!",
         description:
           "Сообщение успешно отправлено. Если вы не получите ответ, проверьте корректность email.",
         variant: "default",
@@ -95,32 +95,34 @@ const Page = () => {
   return (
     <main className="p-4 sm:p-12 md:p-20">
       <h1 className="text-text-primary text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-        Contact <span className="text-accent-purple text-glow">Me</span>
+        Связаться со <span className="text-accent-purple text-glow">мной</span>
       </h1>
 
       <p className="text-text-secondary text-md md:text-lg mb-8">
-        Have a question or an idea? I&apos;m always open to new opportunities
-        and interesting projects.
+        У вас есть вопросы, предложения или интересный проект? Я всегда открыт
+        для новых возможностей и коммерческих предложений.
       </p>
       <section className="grid grid-cols-1 lg:grid-cols-3 lg:space-x-6 space-y-6">
         <Card className="p-4 sm:p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative col-span-2">
           <h2 className="text-xl text-text-primary font-bold">
-            Send a message
+            Отправить сообщение
           </h2>
           <form onSubmit={(e) => handleSendMessage(e)} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2 relative">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Имя</Label>
                 <Input
                   id="name"
                   name="name"
-                  placeholder="Your name"
+                  placeholder="Ваше имя"
                   value={formData.name}
                   onChange={(e) => changeInputValue({ name: e.target.value })}
                   required
                   className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
                 />
-                <p className={`absolute right-2 bottom-3 text-xs ${formData.name.length > MAX_LENGTHS.name ? 'text-red-500' : 'text-text-secondary'}`}>
+                <p
+                  className={`absolute right-2 bottom-3 text-xs ${formData.name.length > MAX_LENGTHS.name ? "text-red-500" : "text-text-secondary"}`}
+                >
                   {formData.name.length}/{MAX_LENGTHS.name}
                 </p>
               </div>
@@ -140,41 +142,45 @@ const Page = () => {
             </div>
 
             <div className="space-y-2 relative">
-              <Label htmlFor="subject">Subject</Label>
+              <Label htmlFor="subject">Тема</Label>
               <Input
                 id="subject"
                 name="subject"
                 value={formData.subject}
                 onChange={(e) => changeInputValue({ subject: e.target.value })}
-                placeholder="Subject"
+                placeholder="Тема сообщения"
                 required
                 className="border border-white/10 color-text-secondary px-4 py-2 rounded-2xl bg-text-secondary/5"
               />
-              <p className={`absolute right-2 bottom-3 text-xs ${formData.subject.length > MAX_LENGTHS.subject ? 'text-red-500' : 'text-text-secondary'}`}>
+              <p
+                className={`absolute right-2 bottom-3 text-xs ${formData.subject.length > MAX_LENGTHS.subject ? "text-red-500" : "text-text-secondary"}`}
+              >
                 {formData.subject.length}/{MAX_LENGTHS.subject}
               </p>
             </div>
 
             <div className="space-y-2 relative">
-              <Label htmlFor="message">Message</Label>
+              <Label htmlFor="message">Сообщение</Label>
               <Textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={(e) => changeInputValue({ message: e.target.value })}
-                placeholder="Your message..."
+                placeholder="Ваше сообщение..."
                 required
                 rows={6}
                 className="glass border-white/10 resize-none px-4 py-2 rounded-2xl bg-text-secondary/5 text-md"
               />
-              <p className={`absolute right-2 bottom-1 text-xs ${formData.message.length > MAX_LENGTHS.message ? 'text-red-500' : 'text-text-secondary'}`}>
+              <p
+                className={`absolute right-2 bottom-1 text-xs ${formData.message.length > MAX_LENGTHS.message ? "text-red-500" : "text-text-secondary"}`}
+              >
                 {formData.message.length}/{MAX_LENGTHS.message}
               </p>
             </div>
 
             <p className="text-sm text-amber-500 mt-1 flex items-center gap-1">
-              🚨*Make sure you&apos;ve entered a valid email — if it&apos;s
-              incorrect, you won&apos;t receive a reply.
+              🚨*Убедитесь, что вы ввели корректный email — если в нём будет
+              ошибка, я не смогу вам ответить.
             </p>
             <Button
               type="submit"
@@ -182,10 +188,10 @@ const Page = () => {
               className="w-full bg-accent-purple hover:bg-accent-purple/80 text-white rounded-2xl py-6 flex items-center justify-center text-md font-medium transition-all duration-200"
             >
               {isSubmitting ? (
-                "Sending..."
+                "Отправка..."
               ) : (
                 <>
-                  Send Message
+                  Отправить сообщение
                   <Send className="ml-2 h-4 w-4" />
                 </>
               )}
@@ -194,7 +200,9 @@ const Page = () => {
         </Card>
         <aside className="space-y-6">
           <Card className="p-6 border border-white/10 rounded-3xl bg-text-secondary/10 transition-transform duration-200 flex flex-col gap-6 relative">
-            <h3 className="text-xl text-text-primary font-bold">Socials</h3>
+            <h3 className="text-xl text-text-primary font-bold">
+              Социальные сети
+            </h3>
             <div className="space-y-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -218,11 +226,11 @@ const Page = () => {
               <div className="w-3 h-3 rounded-full bg-accent-purple mt-2 animate-pulse" />
               <div>
                 <h4 className="text-lg font-bold text-text-primary mb-2">
-                  Availability
+                  Доступность
                 </h4>
                 <p className="text-text-secondary">
-                  I usually respond to messages within 24 hours. Thanks for your
-                  patience!
+                  Обычно я отвечаю на сообщения в течение 24 часов. Спасибо за
+                  ожидание!
                 </p>
               </div>
             </div>

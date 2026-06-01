@@ -31,8 +31,8 @@ const MessageManage: React.FC = () => {
       const token = localStorage.getItem("auth_token");
       if (!token) {
         toast({
-          title: "Error",
-          description: "Authorization required",
+          title: "Ошибка",
+          description: "Требуется авторизация",
           variant: "destructive",
         });
         return;
@@ -46,19 +46,19 @@ const MessageManage: React.FC = () => {
     } catch (error) {
       setStatus("rejected");
       console.error("Error fetching messages:", error);
-      alert("Failed to fetch messages!");
+      alert("Не удалось загрузить сообщения!");
     }
   };
 
   const handleReplyMessage = async (messageId: string, replyText?: string) => {
     try {
-      const reply = replyText ?? window.prompt("Enter reply text:");
+      const reply = replyText ?? window.prompt("Введите текст ответа:");
       if (!reply) return;
       const token = localStorage.getItem("auth_token");
       if (!token) {
         toast({
-          title: "Error",
-          description: "Authorization required",
+          title: "Ошибка",
+          description: "Требуется авторизация",
           variant: "destructive",
         });
         return;
@@ -76,18 +76,18 @@ const MessageManage: React.FC = () => {
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(
-          err?.message || res.statusText || "Error sending reply"
+          err?.message || res.statusText || "Ошибка при отправке ответа"
         );
       }
 
-      toast({ title: "Reply sent", variant: "default" });
+      toast({ title: "Ответ успешно отправлен", variant: "default" });
       await handleGetAllMessages();
       if (selectedMessage && selectedMessage._id === messageId) {
         setSelectedMessage({ ...selectedMessage, replied: true });
       }
     } catch (error) {
       console.error("Error sending reply:", error);
-      toast({ title: "Error sending reply", variant: "destructive" });
+      toast({ title: "Ошибка при отправке ответа", variant: "destructive" });
     } finally {
       handleGetAllMessages();
     }
@@ -109,8 +109,8 @@ const MessageManage: React.FC = () => {
     const token = localStorage.getItem("auth_token");
     if (!token) {
       toast({
-        title: "Error",
-        description: "Authorization required",
+        title: "Ошибка",
+        description: "Требуется авторизация",
         variant: "destructive",
       });
       return;
@@ -130,14 +130,14 @@ const MessageManage: React.FC = () => {
   };
 
   const handleDeleteMessage = async (messageId: string) => {
-    if (!window.confirm("Are you sure you want to delete this message?")) {
+    if (!window.confirm("Вы уверены, что хотите удалить это сообщение?")) {
       return;
     }
     const token = localStorage.getItem("auth_token");
     if (!token) {
       toast({
-        title: "Error",
-        description: "Authorization required",
+        title: "Ошибка",
+        description: "Требуется авторизация",
         variant: "destructive",
       });
       return;
@@ -147,12 +147,12 @@ const MessageManage: React.FC = () => {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast({ title: "Message deleted", variant: "default" });
+      toast({ title: "Сообщение удалено", variant: "default" });
       handleGetAllMessages();
       setSelectedMessage(null);
     } catch (error) {
       console.error("Error deleting message:", error);
-      toast({ title: "Error deleting message!", variant: "default" });
+      toast({ title: "Ошибка при удалении сообщения!", variant: "destructive" });
     }
   };
 
@@ -190,15 +190,15 @@ const MessageManage: React.FC = () => {
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-1 space-y-3">
           <div className="flex items-center">
-            <h3 className="text-xl font-medium">Messages</h3>
+            <h3 className="text-xl font-medium">Сообщения</h3>
             {unreadCount > 0 && (
               <Badge className="ml-auto bg-accent-purple/20 text-accent-purple text-sm font-medium border/50 border-accent-purple px-2 py-0.5">
-                {unreadCount} new
+                {unreadCount} новых
               </Badge>
             )}
           </div>
           {messages.length === 0 && status === "fulfilled" && (
-            <p>Messages not found</p>
+            <p>Сообщения не найдены</p>
           )}
           {status === "fulfilled" &&
             messages.map((message) => {
@@ -211,6 +211,7 @@ const MessageManage: React.FC = () => {
               );
             })}
           {(status === "pending" || messages.length === 0) &&
+            status !== "fulfilled" &&
             Array.from({ length: 3 }).map((_, i) => (
               <MessagesSkeleton key={i} />
             ))}
@@ -222,7 +223,7 @@ const MessageManage: React.FC = () => {
                 {selectedMessage.subject}
               </h2>
               <div className="text-gray-400 text-md flex space-x-6">
-                <p>From: {selectedMessage.name}</p>
+                <p>От: {selectedMessage.name}</p>
                 <p>{selectedMessage.email}</p>
                 <p>{formattedSelectedTime}</p>
               </div>
@@ -243,13 +244,13 @@ const MessageManage: React.FC = () => {
                 className="p-8 rounded-2xl py-5 text-md"
               >
                 <Mail />
-                Reply
+                Ответить
               </Button>
             </div>
           ) : (
             <div className="flex flex-col items-center space-y-6 text-gray-400 p-4">
               <Mail className="h-12 w-12 text-muted-foreground mx-auto" />
-              <p>Select a message to view</p>
+              <p>Выберите сообщение для просмотра</p>
             </div>
           )}
         </div>

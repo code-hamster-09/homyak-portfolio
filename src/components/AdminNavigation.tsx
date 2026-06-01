@@ -2,8 +2,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const nav = [
-  { name: "Projects", href: "/admin/projects" },
-  { name: "Messages", href: "/admin/messages" },
+  { name: "Проекты", href: "/admin/projects" },
+  { name: "Сообщения", href: "/admin/messages" },
 ];
 
 const AdminNavigation = () => {

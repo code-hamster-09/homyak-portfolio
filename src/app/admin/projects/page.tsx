@@ -27,11 +27,11 @@ const ProjectsManage = () => {
       });
   };
   const deleteProject = (_id: string) => {
-    const token = localStorage.getItem("auth_token"); // use correct token key
+    const token = localStorage.getItem("auth_token"); 
     if (!token) {
       toast({
-        title: "Error",
-        description: "Authorization required",
+        title: "Ошибка",
+        description: "Требуется авторизация",
         variant: "destructive",
       });
       return;
@@ -68,7 +68,7 @@ const ProjectsManage = () => {
             setSelectedProject(undefined);
           }}
         >
-          Create project +
+          Создать проект +
         </Button>
       )}
       {isEditing && (
@@ -80,7 +80,7 @@ const ProjectsManage = () => {
       )}
       <div className="space-y-4">
         {projects.length === 0 && status === "fulfilled" && (
-          <p>Projects not found</p>
+          <p>Проекты не найдены</p>
         )}
         {status === "fulfilled" &&
           projects.map((project) => {
@@ -94,6 +94,7 @@ const ProjectsManage = () => {
             );
           })}
         {(status === "pending" || projects.length === 0) &&
+          status !== "fulfilled" && 
           Array.from({ length: 3 }).map((_, i) => (
             <AdminProjectsSkeleton key={i} />
           ))}
